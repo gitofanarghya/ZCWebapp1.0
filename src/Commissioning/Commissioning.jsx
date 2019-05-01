@@ -110,9 +110,9 @@ class Commissioning extends Component {
                         <Grid container  className="flex" direction="column">
 
                             <Grid item sm onClick={this.handleApp} className={classNames("flex","flex1", classes.padBottom, classes.details)}>
-                                {loadedTrackerInfo &&
+                            {loadedTrackerInfo &&
                                     <TrackerAngle angle={selectedTrackerDetails.currentAngle}/>
-                                }
+                            }
                             </Grid>
 
                             <Grid item sm className={classNames("flex", classes.padTop, classes.details)}>
