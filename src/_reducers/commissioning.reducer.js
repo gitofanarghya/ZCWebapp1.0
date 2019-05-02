@@ -1,24 +1,17 @@
 import { commissioningConstants } from '../_constants';
-import update from 'react-addons-update';
 
 const initialState = {
-  requesting: false,
-  commissioningData: null,
-  loaded:  false,
-  requestingTrackerInfo: false,
-  loadedTrackerInfo: false,
-  selectedTrackerDetails: null,
-  selectedTrackerID: "tracker001",
-  trackerColor: {
-    trackerID: "",
-    color: "",
-  },
-  triggeringDiscovery: false,
-  discoveryDetails: null,
-  windSpeed: 0.0,
-  windSpeedT: 0.0,
-  logs: [],
-  xbeelogs: [],
+  sending: false,
+  sent:  false,
+  sendingFile: false,
+  sentFile:  false,
+  sendingKey: false,
+  sentKey:  false,
+  windSensor1: '',
+  rainSensor1: '',
+  floodSensor1: '',
+  snowSensor1: '',
+  windSensorAddress: '',
 }
 
 export function commissioning(state, action) {
@@ -26,133 +19,147 @@ export function commissioning(state, action) {
     return initialState
   }
   switch (action.type) {
-
-
-    case commissioningConstants.GET_COMMISSIONING_DATA_REQUEST:
+    case commissioningConstants.SET_WIFI_INFO_REQUEST:
       return {
         ...state,
-        requesting: true,
-        loaded: false
+        sending: true,
+        sent: false
       };
-    case commissioningConstants.GET_COMMISSIONING_DATA_SUCCESS:
+    case commissioningConstants.SET_WIFI_INFO_SUCCESS:
       return {
         ...state,
-        requesting: false,  
-        commissioningData: action.commissioningData.staticData,
-        loaded: true
+        sending: false,
+        sent: true
       };
-    case commissioningConstants.GET_COMMISSIONING_DATA_FAILURE:
+    case commissioningConstants.SET_WIFI_INFO_FAILURE:
       return {
         ...state,
-        requesting: false,
+        sending: false,
         error: action.error,
-        loaded: false
+        sent: false
       };
 
 
 
-    case commissioningConstants.GET_CURRENT_TRACKER_INFO_REQUEST:
+
+      case commissioningConstants.SELECT_SENSOR_REQUEST:
       return {
         ...state,
-        requestingTrackerInfo: true,
-        selectedTrackerID: action.trackerID
+        sending1: true,
+        sent1: false
       };
-    case commissioningConstants.GET_CURRENT_TRACKER_INFO_SUCCESS:
+    case commissioningConstants.SELECT_SENSOR_SUCCESS:
       return {
         ...state,
-        requestingTrackerInfo: false,  
-        selectedTrackerDetails: action.trackerDetails,
-        loadedTrackerInfo: true
+        sending1: false,
+        sent1: true
       };
-    case commissioningConstants.GET_CURRENT_TRACKER_INFO_FAILURE:
+    case commissioningConstants.SELECT_SENSOR_FAILURE:
       return {
         ...state,
-        requestingTrackerInfo: false,
+        sending1: false,
         error: action.error,
-        loadedTrackerInfo: false
+        sent1: false
       };
 
 
 
-    case commissioningConstants.SET_COLOR_SUCCESS:
-    {
-      var temp = 0;
-      for(var i=0; i< state.commissioningData.length ;i++)
-      {
-        if(state.commissioningData[i].trackerID === action.trackerID)
-        {
-          temp = i;
-          break;
-        }
-      }
-        return update(state, { 
-          commissioningData: { 
-            [temp]: {
-              color: {$set: action.color}
-            }
-          }
-        });
+
+      case commissioningConstants.SET_WIND_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        sending3: false,
+        sent3: true
+      };
+    case commissioningConstants.SET_WIND_ADDRESS_FAILURE:
+      return {
+        ...state,
+        sending3: false,
+        error: action.error,
+        sent3: false
+      };
+
+
+
+
+      case commissioningConstants.GET_WIND_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        sending3: false,
+        sent3: true,
+        windSensorAddress: action.address.message.deviceAddress
+      };
+    case commissioningConstants.GET_WIND_ADDRESS_FAILURE:
+      return {
+        ...state,
+        sending3: false,
+        error: action.error,
+        sent3: false
+      };
+
+
+
       
-    }
-
-
-
-
-    case commissioningConstants.SET_WINDSPEED_SUCCESS:
-    {
+      case commissioningConstants.GET_SENSORS_SUCCESS:
       return {
         ...state,
-        windSpeed: action.windSpeed, windSpeedT: action.windSpeedT
+        windSensor1: action.sensors.windSensor,
+        rainSensor1: action.sensors.rainSensor,
+        floodSensor1: action.sensors.floodSensor,
+        snowSensor1: action.sensors.snowSensor,
       };
-    }
-    case commissioningConstants.TRIGGER_DISCOVERY_REQUEST:
-    return {
-      ...state,
-      triggeringDiscovery: true,
-      discoveryDetails: false,
-      loaded: true
-    };
-
-
-
-
-  case commissioningConstants.TRIGGER_DISCOVERY_SUCCESS:
-    return {
-      ...state,
-      triggeringDiscovery: false,  
-      discoveryDetails: action.discoveryDetails,
-      loaded: true
-    };
-  case commissioningConstants.TRIGGER_DISCOVERY_FAILURE:
-    return {
-      ...state,
-      triggeringDiscovery: false,
-      error: action.error,
-      loaded: true
-    };
-
-
-    
-
-    case commissioningConstants.SET_MESSAGES:
-    if(action.typ === "logs")
-    {
+    case commissioningConstants.GET_SENSORS_FAILURE:
       return {
         ...state,
-        logs: [...state.logs, action.log],
-      };
-    }
+        error: action.error,
 
-    else{
+      };
+
+
+
+
+    case commissioningConstants.UPLOAD_REQUEST:
       return {
         ...state,
-        xbeelogs: [...state.xbeelogs, action.log],
+        sendingFile: true,
+        sentFile: false
       };
-    }
+    case commissioningConstants.UPLOAD_SUCCESS:
+      return {
+        ...state,
+        sendingFile: false,
+        sentFile: true
+      };
+    case commissioningConstants.UPLOAD_FAILURE:
+      return {
+        ...state,
+        sendingFile: false,
+        error: action.error,
+        sentFile: false
+      };
 
 
-    
-  
+
+
+      case commissioningConstants.UPLOAD_KEY_REQUEST:
+      return {
+        ...state,
+        sendingKey: true,
+        sentKey: false
+      };
+    case commissioningConstants.UPLOAD_KEY_SUCCESS:
+      return {
+        ...state,
+        sendingKey: false,
+        sentKey: true
+      };
+    case commissioningConstants.UPLOAD_KEY_FAILURE:
+      return {
+        ...state,
+        sendingKey: false,
+        error: action.error,
+        sentKey: false
+      };
     default:
       return state
   }

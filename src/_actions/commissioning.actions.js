@@ -1,115 +1,168 @@
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { commissioningConstants } from '../_constants';
 import { commissioningService } from '../_services';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const commissioningActions = {
-    getCommissioningData,
-    getCurrentTrackerInfo,
-    setTrackerColor,
-    triggerDiscovery,
-    setWindParams,
-    setMessages,
+    setWifiInfo,
+    upload,
+    selectSensor,
+    uploadKey,
+    getSensors,
+    getWindAddress
 };
 
-function getCommissioningData() {
+function setWifiInfo(ssid, pass) {
     return dispatch => {
         dispatch(request());
 
-        commissioningService.getCommissioningData()
+        commissioningService.setWifiInfo(ssid, pass)
             .then(
-                commissioning => { 
-                    /* for(var i=0; i<commissioning.length; i++)
-                    {
-                        commissioning[i].color = "blue";
-                    } */
-                    const newCommissioning = {};
-                    newCommissioning.staticData = commissioning.staticData.map(c => {
-                        return {
-                            ...c,
-                            color: 'blue'
-                        }
-                    });
-                    dispatch(success(newCommissioning, dispatch));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                }
-            );
-    };
-
-    function request() { return { type: commissioningConstants.GET_COMMISSIONING_DATA_REQUEST } }
-    function success(commissioningData, dispatch) {
-        dispatch(getCurrentTrackerInfo(commissioningData.staticData[0].trackerID)) 
-        return { type: commissioningConstants.GET_COMMISSIONING_DATA_SUCCESS, commissioningData } 
-    }
-    function failure(error) { return { type: commissioningConstants.GET_COMMISSIONING_DATA_FAILURE, error } }
-}
-
-function getCurrentTrackerInfo(trackerID) {
-    return dispatch => {
-        dispatch(request(trackerID));
-
-        commissioningService.getCurrentTrackerInfo(trackerID)
-            .then(
-                trackerDetails => { 
-                    dispatch(success(trackerDetails));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                }
-            );
-    };
-
-    function request(trackerID) { return { type: commissioningConstants.GET_CURRENT_TRACKER_INFO_REQUEST, trackerID } }
-    function success(trackerDetails) { return { type: commissioningConstants.GET_CURRENT_TRACKER_INFO_SUCCESS, trackerDetails } }
-    function failure(error) { return { type: commissioningConstants.GET_CURRENT_TRACKER_INFO_FAILURE, error } }
-}
-
-function setTrackerColor(trackerID, color) {
-    return dispatch => {
-        dispatch(success(trackerID, color));
-    };
-    function success(trackerID, color) { return { type: commissioningConstants.SET_COLOR_SUCCESS, trackerID, color} }
-}
-
-function setMessages(typ, log) {
-    return dispatch => {
-        dispatch(success(typ, log));
-    };
-    function success(typ, log) { return { type: commissioningConstants.SET_MESSAGES, typ, log} }
-}
-
-function setWindParams(windSpeed, windSpeedT) {
-    return dispatch => {
-        dispatch(success(windSpeed, windSpeedT));
-    };
-    function success(windSpeed, windSpeedT) { return { type: commissioningConstants.SET_WINDSPEED_SUCCESS, windSpeed, windSpeedT} }
-}
-
-function triggerDiscovery() {
-    return dispatch => {
-        dispatch(request());
-
-        commissioningService.triggerDiscovery()
-            .then(
-                discoveryDetails => { 
-                    dispatch(success(discoveryDetails))
-                    toast("Successfully started discovery!", {
+                ok => { 
+                    dispatch(success(ok.toString()));
+                    toast('successfully set wifi info!', {
                         position: "bottom-right"
                       });
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    toast("Error in starting discovering!", {
+                    toast('error in setting wifi info!', {
                         position: "bottom-right"
                       });
                 }
             );
     };
 
-    function request() { return { type: commissioningConstants.TRIGGER_DISCOVERY_REQUEST} }
-    function success(discoveryDetails) { return { type: commissioningConstants.TRIGGER_DISCOVERY_SUCCESS, discoveryDetails } }
-    function failure(error) { return { type: commissioningConstants.TRIGGER_DISCOVERY_FAILURE, error } }
+    function request() { return { type: commissioningConstants.SET_WIFI_INFO_REQUEST } }
+    function success(success) { return { type: commissioningConstants.SET_WIFI_INFO_SUCCESS, success } }
+    function failure(error) { return { type: commissioningConstants.SET_WIFI_INFO_FAILURE, error } }
 }
+
+
+
+function upload(file) {
+    return dispatch => {
+        dispatch(request());
+
+        commissioningService.upload(file)
+            .then(
+                ok => { 
+                    dispatch(success(ok.toString()));
+                    toast('successfully uploaded!', {
+                        position: "bottom-right"
+                      });
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    toast('error in uploading!', {
+                        position: "bottom-right"
+                      });
+                }
+            );
+    };
+
+    function request() { return { type: commissioningConstants.UPLOAD_REQUEST } }
+    function success(success) { return { type: commissioningConstants.UPLOAD_SUCCESS, success } }
+    function failure(error) { return { type: commissioningConstants.UPLOAD_FAILURE, error } }
+}
+
+function uploadKey(key) {
+    return dispatch => {
+        dispatch(request());
+
+        commissioningService.uploadKey(key)
+            .then(
+                ok => { 
+                    dispatch(success(ok.toString()));
+                    toast('successfully uploaded!', {
+                        position: "bottom-right"
+                      });
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    toast('error in uploading!', {
+                        position: "bottom-right"
+                      });
+                }
+            );
+    };
+
+    function request() { return { type: commissioningConstants.UPLOAD_KEY_REQUEST } }
+    function success(success) { return { type: commissioningConstants.UPLOAD_KEY_SUCCESS, success } }
+    function failure(error) { return { type: commissioningConstants.UPLOAD_KEY_FAILURE, error } }
+}
+
+function selectSensor(windSensor, rainSensor, floodSensor, snowSensor, windAddress) {
+    return dispatch => {
+
+        dispatch(request());
+        commissioningService.selectSensor(windSensor, rainSensor, floodSensor, snowSensor)
+            .then(
+                ok => {
+                    dispatch(success(ok.toString()));
+                    toast('successfully set sensors!', {
+                        position: "bottom-right"
+                      });
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    toast('error in setting sensors!', {
+                        position: "bottom-right"
+                      });
+                }
+            ); 
+            
+            commissioningService.setWindAddress(windAddress)
+            .then(
+                ok => {
+                    dispatch(success1(ok.toString()));
+                },
+                error => {
+                    dispatch(failure1(error.toString()));
+                }
+            );  
+    };
+
+    function success1(){return {type: commissioningConstants.SET_WIND_ADDRESS_SUCCESS}}
+    function failure1(error) { return { type: commissioningConstants.SET_WIND_ADDRESS_FAILURE, error } }
+    function request() { return { type: commissioningConstants.SELECT_SENSOR_REQUEST } }
+    function success(success) { return { type: commissioningConstants.SELECT_SENSOR_SUCCESS, success } }
+    function failure(error) { return { type: commissioningConstants.SELECT_SENSOR_FAILURE, error } }
+}
+
+function getWindAddress() {
+    return dispatch => {
+        commissioningService.getWindAddress()
+        .then(
+            address => { 
+                dispatch(success(address));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            }
+        );
+    };
+
+    function success(address) { return { type: commissioningConstants.GET_WIND_ADDRESS_SUCCESS, address } }
+    function failure(error) { return { type: commissioningConstants.GET_SENSORS_FAILURE, error } }
+}
+
+
+
+function getSensors() {
+    return dispatch => {
+        commissioningService.getSensors()
+        .then(
+            sensors => { 
+                dispatch(success(sensors.message));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+            }
+        );
+    };
+
+    function success(sensors) { return { type: commissioningConstants.GET_SENSORS_SUCCESS, sensors } }
+    function failure(error) { return { type: commissioningConstants.GET_SENSORS_FAILURE, error } }
+}
+

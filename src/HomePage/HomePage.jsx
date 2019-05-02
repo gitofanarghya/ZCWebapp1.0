@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Layout from './Layout'
 import { } from '../_actions';
+import { DashBoard } from '../DashBoard';
+import { Control } from '../Control';
 import { Commissioning } from '../Commissioning';
-import { Commands } from '../Commands';
-import { Wifi } from '../Wifi';
-import { commissioningActions } from '../_actions';
+import { dashBoardActions } from '../_actions';
 import { Settings } from '../Settings';
 import { About } from '../About';
-import {Messages} from '../Messages';
+import {Logs} from '../Logs';
 import io from 'socket.io-client';
 
 class HomePage extends React.Component {
@@ -94,15 +94,13 @@ class HomePage extends React.Component {
 
     render() {
         return(
-            <Layout selected={this.props.match.params.id}>
+            <Layout selected={this.props.currentPage}>
                 {
-                    this.props.match.params.id ?
-                        this.props.match.params.id === 'Commissioning' ? <Commissioning /> :
-                            this.props.match.params.id === 'Commands' ? <Commands /> :
-                                this.props.match.params.id === 'Logs' ? <Messages />:
-                                    this.props.match.params.id === 'Wifi' ? <Wifi /> :
-                                        this.props.match.params.id === 'Settings' ? <Settings /> : <About />
-                    : <Commissioning />
+                        this.props.currentPage === 'Dashboard' ? <DashBoard /> :
+                          this.props.currentPage === 'Control' ? <Control /> :
+                            this.props.currentPage === 'Commissioning' ? <Commissioning />:
+                              this.props.currentPage === 'Settings' ? <Settings /> :
+                                  this.props.currentPage === 'Logs' ? <Logs /> : <About />
                 }
             </Layout>
         )
@@ -112,25 +110,27 @@ class HomePage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
     getCommissioningData: () => {
-        dispatch(commissioningActions.getCommissioningData()) 
+        dispatch(dashBoardActions.getCommissioningData()) 
     },
     setWindParams: (windSpeed, windSpeedT) =>{
-        dispatch(commissioningActions.setWindParams(windSpeed, windSpeedT))
+        dispatch(dashBoardActions.setWindParams(windSpeed, windSpeedT))
     },
         setTrackerColor: (trackerID, color) =>{
-        dispatch(commissioningActions.setTrackerColor(trackerID, color))
+        dispatch(dashBoardActions.setTrackerColor(trackerID, color))
     },
     setMessages: (typ, log) =>{
-        dispatch(commissioningActions.setMessages(typ, log))
+        dispatch(dashBoardActions.setMessages(typ, log))
     },
 })
 
 const mapStateToProps = (state) => {
     const { timezone } = state.settings;
+    const { currentPage } = state.homePage;
     return {
-      timezone
+      timezone,
+      currentPage
     };
-  }
+}
 
 const connectedHomePage = connect(mapStateToProps, mapDispatchToProps)(HomePage);
 export { connectedHomePage as HomePage };

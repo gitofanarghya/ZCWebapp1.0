@@ -19,10 +19,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ListIcon from '@material-ui/icons/List';
 import InfoIcon from '@material-ui/icons/Info';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import { Link } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { commissioningActions } from '../_actions'
+import { dashBoardActions, homePageActions } from '../_actions'
 import { connect } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import Clock from 'react-live-clock';
@@ -156,7 +155,8 @@ class ResponsiveDrawer extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  handleCloseDrawer = () => {
+  handleCloseDrawer = (currentPage) => {
+    this.props.setCurrentPage(currentPage);
     this.setState({mobileOpen: false});
   }
 
@@ -193,54 +193,47 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classNames(classes.toolbar, "ftclogo")} />
         <Divider />
-        <Link to="/Commissioning">
-        <ListItem button onClick={this.handleCloseDrawer} className={this.props.selected === 'Commissioning' || !this.props.selected ? classes.selected : ""}>
+        <ListItem button onClick={() => this.handleCloseDrawer("Dashboard")} className={this.props.selected === 'Dashboard' || !this.props.selected ? classes.selected : ""}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
-        </Link>
-        <Link to="/Commands">
-        <ListItem button onClick={this.handleCloseDrawer} className={this.props.selected === 'Commands' ? classes.selected : ""}>
+
+        <ListItem button onClick={() => this.handleCloseDrawer("Control")} className={this.props.selected === 'Control' ? classes.selected : ""}>
           <ListItemIcon>
             <SendIcon />
           </ListItemIcon>
           <ListItemText primary="Control" />
         </ListItem>
-        </Link>
-        <Link to="/Wifi">
-        <ListItem button onClick={this.handleCloseDrawer} className={this.props.selected === 'Wifi' ? classes.selected : ""}>
+
+        <ListItem button onClick={() => this.handleCloseDrawer("Commissioning")} className={this.props.selected === 'Commissioning' ? classes.selected : ""}>
           <ListItemIcon>
             <NetworkWifiIcon />
           </ListItemIcon>
           <ListItemText primary="Commissioning" />
         </ListItem>
-        </Link>
-        <Link to="/Settings">
-        <ListItem button onClick={this.handleCloseDrawer} className={this.props.selected === 'Settings' ? classes.selected : ""}>
+
+        <ListItem button onClick={() => this.handleCloseDrawer("Settings")} className={this.props.selected === 'Settings' ? classes.selected : ""}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary="Settings" />
         </ListItem>
-        </Link>
-        <Link to="/Logs">
-        <ListItem button onClick={this.handleCloseDrawer} className={this.props.selected === 'Logs' ? classes.selected : ""}>
+
+        <ListItem button onClick={() => this.handleCloseDrawer("Logs")} className={this.props.selected === 'Logs' ? classes.selected : ""}>
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
           <ListItemText primary="Logs" />
         </ListItem>
-        </Link>
-        <Link to="/About">
-        <ListItem button onClick={this.handleCloseDrawer} className={this.props.selected === 'About' ? classes.selected : ""}>
+
+        <ListItem button onClick={() => this.handleCloseDrawer("About")} className={this.props.selected === 'About' ? classes.selected : ""}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
           <ListItemText primary="About" />
         </ListItem>
-        </Link>
 
         <Divider />
       </div>
@@ -365,7 +358,7 @@ ResponsiveDrawer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { windSpeed, windSpeedT, commissioningData, loaded } = state.commissioning;
+  const { windSpeed, windSpeedT, commissioningData, loaded } = state.dashBoard;
   const { timezone } = state.settings;
   return {
     windSpeed,
@@ -378,7 +371,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setTrackerColor: (trackerID, color) => {
-      dispatch(commissioningActions.setTrackerColor(trackerID, color)) 
+      dispatch(dashBoardActions.setTrackerColor(trackerID, color)) 
+  },
+  setCurrentPage: (currentPage) => {
+    dispatch(homePageActions.setCurrentPage(currentPage))
   }
 })
 
