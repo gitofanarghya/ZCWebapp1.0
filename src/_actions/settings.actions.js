@@ -8,9 +8,11 @@ export const settingsActions = {
     setPanID,
     threshold,
     heartBeat,
-    timeZone,
+    setTimeZone,
     getSettings,
     setFrequency,
+    getTimeZone,
+    setInitialTimeZone,
 };
 
 function sendSetting(setting) {
@@ -172,13 +174,13 @@ function getSettings() {
     function failure2(error) { return { type: settingsConstants.GET_PANID_FAILURE, error } }
 }
 
-function timeZone(timezone) {
-    /*return dispatch => {
+function setTimeZone(timezone) {
+    return dispatch => {
         dispatch(request());
-        settingsService.timeZone(time)
+        settingsService.setTimeZone(timezone)
             .then(
                 ok => { 
-                    dispatch(success(ok.toString()));
+                    dispatch(success(timezone));
                     toast('successfully set Time Zone')
                 },
                 error => {
@@ -186,19 +188,12 @@ function timeZone(timezone) {
                     toast('error in setting Time Zone!')
                 }
             );
-    };*/
-
-    return dispatch => {
-        console.log(timezone);
-        dispatch(success(timezone));
-        toast('successfully set Time Zone', {
-            position: "bottom-right"
-          });
     };
 
-    
+    function request() { return { type: settingsConstants.SET_TIMEZONE_REQUEST } }
+    function success(success) { return { type: settingsConstants.SET_TIMEZONE_SUCCESS, success } }
+    function failure(error) { return { type: settingsConstants.SET_TIMEZONE_FAILURE, error } }
 
-    function success(timezone) { return { type: settingsConstants.SET_TIMEZONE_SUCCESS, timezone} }
 }
 
 function setFrequency(power, status) {
@@ -227,4 +222,37 @@ function setFrequency(power, status) {
     function request() { return { type: settingsConstants.SET_FREQUENCY_REQUEST } }
     function success(success) { return { type: settingsConstants.SET_FREQUENCY_SUCCESS, success } }
     function failure(error) { return { type: settingsConstants.SET_FREQUENCY_FAILURE, error } }
+}
+
+
+function getTimeZone() {
+    return dispatch => {
+        dispatch(request());
+
+        settingsService.getTimeZone()
+            .then(
+                timeZone => {
+                    if(timeZone.result === 'success')
+                    {
+                        dispatch(success(timeZone.message));
+                    }
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                }
+            );
+    };
+    
+
+    function request() { return { type: settingsConstants.GET_TIMEZONE_REQUEST } }
+    function success(timeZone) { return { type: settingsConstants.GET_TIMEZONE_SUCCESS, timeZone } }
+    function failure(error) { return { type: settingsConstants.GET_TIMEZONE_FAILURE, error } }
+}
+
+function setInitialTimeZone(timezone) {
+    return dispatch => {
+        dispatch(success(timezone));
+    };
+
+    function success(timezone) { return { type: settingsConstants.SET_TIMEZONE_SUCCESS, timezone} }
 }
