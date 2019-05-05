@@ -7,6 +7,7 @@ import { Button, TableHead, TableRow, TableCell, Table, TableBody } from '@mater
 import { connect } from 'react-redux'
 import { dashBoardActions } from '../_actions';
 import LoadingOverlay from 'react-loading-overlay';
+import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
@@ -79,6 +80,12 @@ const styles = theme => ({
     height: 'fit-content',
     marginTop: 'auto',
     backgroundColor: '#54AAB3',
+    color: 'white',
+  },
+  tableRow: {
+    [theme.breakpoints.down('600')]: {
+      height: '20px'
+    },
   }
 });
 
@@ -107,9 +114,9 @@ class DeviceList extends Component {
               >
             <Table className={classes.table}>
               <TableHead>
-              <TableRow>
-                  <TableCell padding="none"><Typography variant="subheading" >TrackerID</Typography></TableCell>
-                  <TableCell padding="none"><Typography variant="subheading">Status</Typography></TableCell>
+              <TableRow className={classes.tableRow}>
+                  <TableCell  style={{ padding: '5px', height: 'auto !important'}}><Typography variant="subheading" >TrackerID</Typography></TableCell>
+                  <TableCell  style={{ padding: '5px', height: 'auto !important'}}><Typography variant="subheading">Status</Typography></TableCell>
               </TableRow>
               </TableHead>
 
@@ -119,16 +126,16 @@ class DeviceList extends Component {
                       <TableRow
                         hover
                         onClick={() => this.props.getTrackerDetails(n.trackerID)}
-                        className={n.trackerID === selectedTrackerID ? classes.selected : classes.row}
+                        className={classNames(n.trackerID === selectedTrackerID ? classes.selected : classes.row, classes.tableRow)}
                         key={n.id}
-                        style={{cursor: 'pointer'}}
+                        style={{cursor: 'pointer', padding: '5px'}}
                       >
-                          <TableCell component="th" scope="row" padding="none">
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
                               <Typography variant="body1">
                                   {n.trackerID}
                               </Typography>
                           </TableCell>
-                          <TableCell padding="none">{n.color === "red" ? <div style={{color: 'red'}}> Not Reachable </div> : <div style={{color: 'green'}}>Reachable</div>}</TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important'}}>{n.color === "red" ? <div style={{color: 'red'}}> Not Reachable </div> : <div style={{color: 'green'}}>Reachable</div>}</TableCell>
                       </TableRow>
                       );
                   })}

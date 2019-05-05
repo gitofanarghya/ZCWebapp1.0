@@ -21,26 +21,26 @@ const styles = theme => ({
   },
   red: {
     height: '55px',
-    backgroundColor: 'red'
+    backgroundColor: '#54AAB3'
   },
   button: {
     margin: theme.spacing.unit * 2,
   },
   green: {
     height: '55px',
-    backgroundColor: 'lightgreen'
+    backgroundColor: '#54AAB3'
   },
   orange: {
     height: '55px',
-    backgroundColor: 'darkorange'
+    backgroundColor: '#54AAB3'
   },
   yellow: {
     height: '55px',
-    backgroundColor: 'beige'
+    backgroundColor: '#54AAB3'
   },
   blue: {
     height: '55px',
-    backgroundColor: 'lightskyblue'
+    backgroundColor: '#54AAB3'
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
@@ -50,7 +50,7 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
   }, 
   menuss: {
-    backgroundColor: 'darkorange',
+    backgroundColor: '#54AAB3',
     width: '100px',
     borderRadius: '3px',
     color: 'black',
@@ -63,8 +63,10 @@ const styles = theme => ({
     width: '100px',
   },
   grey: {
-    backgroundColor: 'silver',
-    opacity: 0.5
+    backgroundColor: '#E1E1E1',
+  },
+  label: {
+    color: 'black'
   }
 });
 
@@ -193,7 +195,11 @@ class CheckboxListSecondary extends React.Component {
                 className={classNames(classes.orange, classes.button, classes.braod, (!this.state.disable? classes.grey: null))}
                 disabled={!this.state.disable}
                 onChange={(e) => this.handleChange4(e)}
-                InputLabelProps={{ fontWeight: 500}}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.label,
+                  },
+                }}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -201,6 +207,7 @@ class CheckboxListSecondary extends React.Component {
                 }}
                 margin="none"
                 variant="outlined"
+                style={{border: null}}
               >
 
                 {
@@ -244,6 +251,7 @@ class CheckboxListSecondary extends React.Component {
                       className={classes.menus}
                       value={this.state.tracker}  
                       onChange={this.handleChange0}
+                      InputLabelProps={{ color: 'black'}}
                       SelectProps={{
                         MenuProps: {
                           className: classes.menu,
@@ -284,7 +292,11 @@ class CheckboxListSecondary extends React.Component {
                       value={this.state.stow}
                       className={classes.menuss}
                       onChange={(e) => this.handleChange3(e, trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}
-                      InputLabelProps={{ fontWeight: 500}}
+                      InputLabelProps={{
+                        classes: {
+                          root: classes.label,
+                        },
+                      }}
                       SelectProps={{
                         MenuProps: {
                           className: classes.menu,

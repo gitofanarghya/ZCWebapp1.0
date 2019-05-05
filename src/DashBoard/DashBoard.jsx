@@ -30,22 +30,27 @@ const styles = theme => ({
     padBottom: {
        height:'45%',
     },
-    details: {
-        [theme.breakpoints.down('md')]: {
-            height: '500px',
-        },
-    },
     trackerDetails: {
         width: '100%', 
-        marginTop: '10px',
-        marginBottom: '10px',
-        marginRight: '10px',
+        [theme.breakpoints.up(600)]: {
+            marginTop: '10px',
+            marginBottom: '10px',
+            marginRight: '10px',
+          },
+    [theme.breakpoints.down(600)]: {
+            marginLeft: '10px',
+            marginBottom: '10px',
+            marginRight: '10px',
+          },
     },
     image: {
         backgroundImage: 'url(/img/openApp.png)',
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat'
     },
+    trackerDetails1: {
+        height: '55%',
+    }
 });
 
 class DashBoard extends Component {
@@ -123,7 +128,7 @@ class DashBoard extends Component {
                                 }
                                 </div>
 
-                                <div>
+                                <div className={classes.trackerDetails1}>
                                     {loadedTrackerInfo &&
                                         <TrackerDetails 
                                                                 deviceID={this.state.deviceID}

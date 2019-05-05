@@ -32,6 +32,8 @@ const styles = theme => ({
     margin: 'auto',
     textAlign: 'left',
     borderRadius: '2%',
+    maxHeight: 'calc(100% - 37px)',
+    overflow: 'auto'
   },
   cell: {
     textAlign: 'left',
@@ -45,20 +47,18 @@ const styles = theme => ({
       fontSize: '10px',
     },
     fontSize: '1vw',
+    padding: '5px !important',
+    margin: '0 !important'
+
   },
-  innerRow: {
-    textAlign: 'left',
-    [theme.breakpoints.down('md')]: {
-      fontSize: '20px',
+  tableRow: {
+    [theme.breakpoints.up('600')]: {
+      height: '5vh',
     },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '15px',
+    [theme.breakpoints.down('600')]: {
+      height: 3,
     },
-    [theme.breakpoints.down('750')]: {
-      fontSize: '10px',
-    },
-    fontSize: '1vw',
-  },
+  }
 });
 
 class TrackerDetails extends React.Component {
@@ -83,39 +83,39 @@ class TrackerDetails extends React.Component {
         </Typography>
         <Table className={classes.table}>
             <TableBody>
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Tracker ID </b></TableCell><TableCell className={classes.cell}>{data.trackerID?data.trackerID: '--'} 
+                      <TableRow className={classes.tableRow}>
+                      <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
+                      Tracker ID </b></TableCell><TableCell className={classes.cell} style={{ height: 'auto !important' }}>{data.trackerID?data.trackerID: '--'} 
                       </TableCell>
                       </TableRow>
 
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Device ID </b></TableCell><TableCell className={classes.cell}>{data.deviceID?data.trackerID: '--'} 
+                      <TableRow className={classes.tableRow}>
+                      <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
+                      Device ID </b></TableCell><TableCell className={classes.cell} style={{ height: 'auto !important' }}>{data.deviceID?data.trackerID: '--'} 
                       </TableCell>
                       </TableRow>
 
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Mac ID </b></TableCell><TableCell className={classes.cell}>{data.macID?data.trackerID: '--'} 
+                      <TableRow className={classes.tableRow}>
+                      <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
+                      Mac ID </b></TableCell><TableCell className={classes.cell} style={{ height: 'auto !important' }}>{data.macID?data.trackerID: '--'} 
                       </TableCell>
                       </TableRow>
 
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Current Mode </b></TableCell><TableCell className={classes.cell}>{data.currentMode?data.trackerID: '--'}
+                      <TableRow className={classes.tableRow}>
+                      <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
+                      Current Mode </b></TableCell><TableCell className={classes.cell} style={{ height: 'auto !important' }}>{data.currentMode?data.trackerID: '--'}
                       </TableCell>
                       </TableRow>
 
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Current Angle </b></TableCell><TableCell className={classes.cell}>{data.currentAngle? parseFloat(data.currentAngle).toFixed(2): '--'}  deg
+                      <TableRow className={classes.tableRow}>
+                      <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
+                      Current Angle </b></TableCell><TableCell className={classes.cell} style={{ height: 'auto !important' }}>{data.currentAngle? parseFloat(data.currentAngle).toFixed(2): '--'}  deg
                       </TableCell>
                       </TableRow>
 
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Date and Time </b></TableCell><TableCell className={classes.cell}>{new Date(Number(data.timeStamp) * 1000).toLocaleDateString('en-US', {timeZone: this.state.timezone})} -- {new Date(Number(data.timeStamp) * 1000).toLocaleTimeString('en-US', {timeZone:  this.state.timezone, hour12: false})}
+                      <TableRow className={classes.tableRow}>
+                      <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
+                      Date and Time </b></TableCell><TableCell className={classes.cell} style={{ height: 'auto !important' }}>{new Date(Number(data.timeStamp) * 1000).toLocaleDateString('en-US', {timeZone: this.state.timezone})} -- {new Date(Number(data.timeStamp) * 1000).toLocaleTimeString('en-US', {timeZone:  this.state.timezone, hour12: false})}
                       </TableCell>
                       </TableRow>
             </TableBody>

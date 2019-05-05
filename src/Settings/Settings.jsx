@@ -29,9 +29,12 @@ const styles = theme => ({
   paper: {
       width: '100%',
       verticalAlign: 'middle',
-        position: 'relative',
-        textAlign: 'center',
-        height: '400px',
+      position: 'relative',
+      textAlign: 'center',
+      height: '400px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
   },
   menu: {
    width: '75%',
@@ -47,6 +50,10 @@ const styles = theme => ({
   button:{
     backgroundColor: '#54AAB3',
     color: 'white',
+    marginBottom: '20px',
+  },
+  field: {
+    width: '80%',
   }
 });
 
@@ -160,33 +167,39 @@ class Settings extends Component {
               <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
                 <Grid item md={3}  xs={6}  className={classes.grid} >
                   <Paper className={classes.paper}>
-                    <Typography variant="h5" component="h3" className={classes.header}>
-                        Set XBEE config
-                    </Typography>
-                    <br />
+                    <div>
+                      <Typography variant="h5" component="h3" className={classes.header}>
+                          Set XBEE config
+                      </Typography>
+                      <br />
+                      
+                      <form onSubmit={this.handleSubmit } >
+                              <TextField
+                                  name="panID"
+                                  label="PAN ID"
+                                  placeholder="Enter the PAN ID"
+                                  margin="none"
+                                  onChange={this.handleChange}
+                                  variant="outlined"
+                                  className={classes.field}
+                                  defaultValue={this.props.panid1.panID}
+                              />
+                              <br />
+                              <br />
+                      </form>
+                    </div>
                     
-                    <form onSubmit={this.handleSubmit } >
-                            <TextField
-                                name="panID"
-                                label="PAN ID"
-                                placeholder="Enter the PAN ID"
-                                margin="none"
-                                onChange={this.handleChange}
-                                variant="outlined"
-                                className={classes.field}
-                                defaultValue={this.props.panid1.panID}
-                            />
-                            <br />
-                            <br />
-                            <Button type="submit" className={classes.button} onClick={this.handleClick} variant="outlined">
-                                Submit
-                            </Button>
-                    </form>
+                    <div>
+                      <Button type="submit" className={classes.button} onClick={this.handleClick} variant="outlined">
+                          Submit
+                      </Button>
+                    </div>
                   </Paper>
                 </Grid>
 
                 <Grid item md={6}  xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
+                  <div>
                     <Typography variant="h5" component="h3" className={classes.header}>
                         Threshold
                     </Typography>
@@ -288,15 +301,18 @@ class Settings extends Component {
                     </Grid>
 
                     <br /><br />
-
-                    <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="outlined">
-                        Submit
-                    </Button>
+                    </div>
+                    <div>
+                      <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="outlined">
+                          Submit
+                      </Button>
+                    </div>
                   </Paper>
               </Grid>
 
               <Grid item md={3}  xs={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
+                <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
                       Heart Beat Settings
                   </Typography>
@@ -360,19 +376,20 @@ class Settings extends Component {
                         }}
                     />
 
-                    <br /><br />
-
-                    <center>
-                        <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="outlined">
-                            Submit
-                        </Button>
-                    </center>
+                    <br /><br />   
                   </form>
+                </div>
+                <div>
+                  <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="outlined">
+                              Submit
+                  </Button>
+                </div>
                 </Paper>
               </Grid>
 
               <Grid item md={3}  xs={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
+                <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
                       Select Time Zone
                   </Typography>
@@ -405,19 +422,21 @@ class Settings extends Component {
                     </TextField>
             
                     <br /><br />
-                    <center>
-                        <Button className={classes.button} onClick={this.handleTimeZone} variant="outlined">
-                            Submit
-                        </Button>
-                    </center>
                   </form>
+                </div>
+                <div>
+                  <Button className={classes.button} onClick={this.handleTimeZone} variant="outlined">
+                              Submit
+                  </Button>
+                </div>
                 </Paper>
               </Grid>
 
               <Grid item md={3}  xs={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
+                <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
-                    Select Frequency
+                    Select Frequency(s)
                   </Typography>
 
                   <br />
@@ -432,9 +451,6 @@ class Settings extends Component {
                             variant="outlined"
                             className={classes.field}
                             defaultValue={this.props.powerRequestTimePeriod1}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
-                            }}
                         />
                         <br />
                         <TextField
@@ -446,21 +462,19 @@ class Settings extends Component {
                             variant="outlined"
                             className={classes.field}
                             defaultValue={this.props.statusRequestTimePeriod1}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
-                            }}
                         />
                         <br /><br />
-                        <center>
-                            <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="outlined">
-                                Submit
-                            </Button>
-                        </center>
                   </form>
+                </div>
+                <div>
+                  <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="outlined">
+                      Submit
+                  </Button>
+                </div>
                 </Paper>
               </Grid>
             </Grid>
-          }
+            }
       </div>
         );
     }

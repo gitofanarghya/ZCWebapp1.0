@@ -31,9 +31,12 @@ const styles = theme => ({
   paper: {
       width: '100%',
       verticalAlign: 'middle',
-        position: 'relative',
-        textAlign: 'center',
-      height: '500px',  
+      position: 'relative',
+      textAlign: 'center',
+      height: '500px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
   },
   paper1: {
       padding: '5%',
@@ -91,6 +94,7 @@ const styles = theme => ({
   button:{
     backgroundColor: '#54AAB3',
     color: 'white',
+    marginBottom: '20px',
   }
 });
 
@@ -183,7 +187,8 @@ class Commissioning extends Component {
           <div className={classes.root} >
             <Grid  container justify="flex-start" direction="row" style={{height: '100%'}}>            
               <Grid item  md={3}  xs={6} className={classes.grid}>
-                <Paper className={classes.paper}>    
+                <Paper className={classes.paper}>
+                  <div> 
                       <Typography variant="h5" component="h3" className={classes.header}>
                           WiFi Settings
                       </Typography>
@@ -216,17 +221,19 @@ class Commissioning extends Component {
                           />
                           <br />
                           <br />
-                                    
-                          <Button onClick={() => this.handleSubmit()}  variant="outlined" component="span" className={classes.button}>
-                              CONNECT
-                          </Button>
                       </form>
+                  </div>
+                  <div>
+                  <Button onClick={() => this.handleSubmit()}  variant="outlined" component="span" className={classes.button}>
+                              CONNECT
+                  </Button>
+                  </div>
                 </Paper>
               </Grid>
 
               <Grid  item  md={3}  xs={6} className={classes.grid}>
                 <Paper className={classes.paper}>
-                            
+                         <div>  
                       <Typography variant="h5" component="h3" className={classes.header}>
                             Upload Zone Tracker Info
                       </Typography>
@@ -264,16 +271,18 @@ class Commissioning extends Component {
                                 Upload the JSON document that contains the static initialization data.
                             </p>
                           </label>
- 
-                          <Button onClick={this.handleUpload} variant="outlined" component="span" className={classes.button}>
-                              Upload
-                          </Button>
-                      </form>
+                      </form></div> 
+                      <div>
+                      <Button onClick={this.handleUpload} variant="outlined" component="span" className={classes.button}>
+                          Upload
+                      </Button>
+                      </div>
                 </Paper>
               </Grid>
 
               <Grid  item  md={3}  xs={6} className={classes.grid}>
-                <Paper className={classes.paper}> 
+                <Paper className={classes.paper}>
+                  <div>
                       <Typography variant="h5" component="h3" className={classes.header}>
                         Sensor Settings
                       </Typography>
@@ -409,16 +418,19 @@ class Commissioning extends Component {
 
                           <br />      
                           <br />
-
-                          <Button onClick={this.selectS} variant="outlined" component="span" className={classes.button}>
-                              Submit
-                          </Button>
                       </form>
+                  </div>
+                  <div>
+                  <Button onClick={this.selectS} variant="outlined" component="span" className={classes.button}>
+                              Submit
+                  </Button>
+                  </div>
                 </Paper>
               </Grid>
 
               <Grid  item  md={3}  xs={6} className={classes.grid}>
                 <Paper className={classes.paper}>
+                  <div>
                     <Typography variant="h5" component="h3" className={classes.header}>
                          Big Query
                     </Typography>
@@ -451,11 +463,13 @@ class Commissioning extends Component {
                                 Upload key.
                             </p>
                         </label>
-        
-                        <Button onClick={this.handleUploadKey} variant="outlined" component="span" className={classes.button}>
-                            Upload
-                        </Button>
                     </form>
+                </div>
+                <div>
+                <Button onClick={this.handleUploadKey} variant="outlined" component="span" className={classes.button}>
+                            Upload
+                </Button>
+                </div>
               </Paper>
             </Grid>
         </Grid>
