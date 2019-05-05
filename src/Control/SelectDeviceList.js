@@ -187,13 +187,13 @@ class CheckboxListSecondary extends React.Component {
               <TextField
                 id="enabled-simple2"
                 select
-                label="Stow"
+                label="STOW"
                 name="stows"
                 value={this.state.stows}
                 className={classNames(classes.orange, classes.button, classes.braod, (!this.state.disable? classes.grey: null))}
                 disabled={!this.state.disable}
                 onChange={(e) => this.handleChange4(e)}
-                InputLabelProps={{ shrink: true }}
+                InputLabelProps={{ fontWeight: 500}}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -240,7 +240,7 @@ class CheckboxListSecondary extends React.Component {
                       id="enabled-simple"
                       select
                       label="Tracker"
-                      name="tracker"t
+                      name="tracker"
                       className={classes.menus}
                       value={this.state.tracker}  
                       onChange={this.handleChange0}
@@ -279,12 +279,12 @@ class CheckboxListSecondary extends React.Component {
                     <TextField
                       id="enabled-simple1"
                       select
-                      label="Stow"
+                      label="STOW"
                       name="stow"
                       value={this.state.stow}
                       className={classes.menuss}
                       onChange={(e) => this.handleChange3(e, trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ fontWeight: 500}}
                       SelectProps={{
                         MenuProps: {
                           className: classes.menu,
@@ -300,6 +300,11 @@ class CheckboxListSecondary extends React.Component {
                       }
 
                     </TextField>
+
+                    <Button variant="contained" className={classes.yellow} onClick={(e) => this.handleChange2(e,'SMTALReset', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
+                        RESET
+                        <AutorenewIcon className={classes.rightIcon} />
+                    </Button>
                   </Grid>
                   <br/>
                   <br/>

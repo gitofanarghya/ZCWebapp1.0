@@ -9,6 +9,8 @@ import {TrackerDetails} from './TrackerDetails';
 import { dashBoardActions } from '../_actions';
 import { Loading } from '../_components';
 import TrackerAngle from './TrackerAngle';
+import Paper from '@material-ui/core/Paper';
+
 
 const styles = theme => ({
     root: {
@@ -26,12 +28,18 @@ const styles = theme => ({
         height: '100%',
     },
     padBottom: {
-        maxHeight:'45%',
+       height:'45%',
     },
     details: {
         [theme.breakpoints.down('md')]: {
             height: '500px',
         },
+    },
+    trackerDetails: {
+        width: '100%', 
+        marginTop: '10px',
+        marginBottom: '10px',
+        marginRight: '10px',
     },
     image: {
         backgroundImage: 'url(/img/openApp.png)',
@@ -104,27 +112,27 @@ class DashBoard extends Component {
                         { loaded ? <DeviceList time={this.state.time} permitJoin={this.permitJoin} permitJoinClicked={this.state.permitJoinClicked} selectedTrackerID={selectedTrackerID} devices={commissioningData} getTrackerDetails={this.getTrackerDetails}/> : <Loading /> }
                     </Grid>
 
-                    <br />
+                    <br /> 
                     
-                    <Grid item xs={12} sm={6}  className={classNames("flex")}>
-                        <Grid container  className="flex" direction="column">
-
-                            <Grid item sm onClick={this.handleApp} className={classNames("flex","flex1", classes.padBottom, classes.details)}>
-                            {loadedTrackerInfo &&
-                                    <TrackerAngle angle={selectedTrackerDetails.currentAngle}/>
-                            }
-                            </Grid>
-
-                            <Grid item sm className={classNames("flex", classes.padTop, classes.details)}>
+                    <Grid item xs={12} sm={6} className={classNames("flex")}>
+                        <Paper className={classes.trackerDetails}>
+                            <div style={{width: '100%', height: '100%'}}>
+                                <div onClick={this.handleApp} className={classNames("flex","flex1", classes.padBottom, classes.details)}>
                                 {loadedTrackerInfo &&
-                                    <TrackerDetails 
-                                                            deviceID={this.state.deviceID}
-                                                            trackerID={selectedTrackerID} 
-                                                            trackerDetails={selectedTrackerDetails}/> 
+                                        <TrackerAngle angle={selectedTrackerDetails.currentAngle}/>
                                 }
-                            </Grid>
+                                </div>
 
-                        </Grid>
+                                <div>
+                                    {loadedTrackerInfo &&
+                                        <TrackerDetails 
+                                                                deviceID={this.state.deviceID}
+                                                                trackerID={selectedTrackerID} 
+                                                                trackerDetails={selectedTrackerDetails}/> 
+                                    }
+                                </div>
+                            </div>
+                        </Paper>
                     </Grid>
                 </Grid>
                 {this.state.singlePixel === true && <div className={classes.image}></div>}

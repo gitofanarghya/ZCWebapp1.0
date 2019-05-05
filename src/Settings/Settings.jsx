@@ -44,6 +44,10 @@ const styles = theme => ({
     height: '412px',
     padding: '6px',
   },
+  button:{
+    backgroundColor: '#54AAB3',
+    color: 'white',
+  }
 });
 
 class Settings extends Component {

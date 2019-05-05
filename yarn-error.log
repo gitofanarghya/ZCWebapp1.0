@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/local/bin/yarn add @material-ui/core
+  /usr/bin/node /usr/local/bin/yarn add react-loading-overlay
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
@@ -14,10 +14,8 @@ Platform:
   linux x64
 
 Trace: 
-  Error: self signed certificate in certificate chain
-      at TLSSocket.onConnectSecure (_tls_wrap.js:1046:34)
-      at TLSSocket.emit (events.js:180:13)
-      at TLSSocket._finishInit (_tls_wrap.js:633:8)
+  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com:443
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:67:26)
 
 npm manifest: 
   {

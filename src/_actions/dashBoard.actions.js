@@ -28,7 +28,7 @@ function getCommissioningData() {
                     newCommissioning.staticData = commissioning.staticData.map(c => {
                         return {
                             ...c,
-                            color: 'blue'
+                            color: 'red'
                         }
                     });
                     dispatch(success(newCommissioning, dispatch));

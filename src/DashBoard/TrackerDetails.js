@@ -5,7 +5,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 
@@ -14,8 +13,6 @@ const styles = theme => ({
     width: '100%',
     overflowX: 'auto',
     ...theme.mixins.gutters(),
-    marginRight: '10px',
-    marginBottom: '10px',
   },
   heading: {
     marginTop: '5px',
@@ -80,7 +77,7 @@ class TrackerDetails extends React.Component {
   const data = trackerDetails;
   
   return (
-    <Paper className={classes.root}>
+    <div className={classes.root}>
         <Typography className={classes.heading} variant="headline" component="h3">
           <p className={classes.para}>Tracker Details</p>
         </Typography>
@@ -88,48 +85,42 @@ class TrackerDetails extends React.Component {
             <TableBody>
                       <TableRow>
                       <TableCell className={classes.innerRow} padding="dense"><b>
-                      Tracker ID </b></TableCell><TableCell className={classes.cell}>{data.trackerID} 
+                      Tracker ID </b></TableCell><TableCell className={classes.cell}>{data.trackerID?data.trackerID: '--'} 
                       </TableCell>
                       </TableRow>
 
                       <TableRow>
                       <TableCell className={classes.innerRow} padding="dense"><b>
-                      Device ID </b></TableCell><TableCell className={classes.cell}>{data.deviceID} 
+                      Device ID </b></TableCell><TableCell className={classes.cell}>{data.deviceID?data.trackerID: '--'} 
                       </TableCell>
                       </TableRow>
 
                       <TableRow>
                       <TableCell className={classes.innerRow} padding="dense"><b>
-                      Mac ID </b></TableCell><TableCell className={classes.cell}>{data.macID} 
+                      Mac ID </b></TableCell><TableCell className={classes.cell}>{data.macID?data.trackerID: '--'} 
                       </TableCell>
                       </TableRow>
 
                       <TableRow>
                       <TableCell className={classes.innerRow} padding="dense"><b>
-                      Current Mode </b></TableCell><TableCell className={classes.cell}>{data.currentMode}
+                      Current Mode </b></TableCell><TableCell className={classes.cell}>{data.currentMode?data.trackerID: '--'}
                       </TableCell>
                       </TableRow>
 
                       <TableRow>
                       <TableCell className={classes.innerRow} padding="dense"><b>
-                      Current Angle </b></TableCell><TableCell className={classes.cell}>{parseFloat(data.currentAngle).toFixed(2)}  deg
+                      Current Angle </b></TableCell><TableCell className={classes.cell}>{data.currentAngle? parseFloat(data.currentAngle).toFixed(2): '--'}  deg
                       </TableCell>
                       </TableRow>
 
                       <TableRow>
                       <TableCell className={classes.innerRow} padding="dense"><b>
-                      Date </b></TableCell><TableCell className={classes.cell}>{new Date(Number(data.timeStamp) * 1000).toLocaleDateString('en-US', {timeZone: this.state.timezone})}
-                      </TableCell>
-                      </TableRow>
-
-                      <TableRow>
-                      <TableCell className={classes.innerRow} padding="dense"><b>
-                      Time </b></TableCell><TableCell className={classes.cell}>{new Date(Number(data.timeStamp) * 1000).toLocaleTimeString('en-US', {timeZone:  this.state.timezone, hour12: false})}
+                      Date and Time </b></TableCell><TableCell className={classes.cell}>{new Date(Number(data.timeStamp) * 1000).toLocaleDateString('en-US', {timeZone: this.state.timezone})} -- {new Date(Number(data.timeStamp) * 1000).toLocaleTimeString('en-US', {timeZone:  this.state.timezone, hour12: false})}
                       </TableCell>
                       </TableRow>
             </TableBody>
         </Table>  
-    </Paper>
+    </div>
   );
 }
 }

@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
-
 
 const styles = theme => ({
   root: {
     width: '100%',
+    height: '100%',
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
-    marginTop: '10px',
-    marginRight: '10px',
-    marginBottom: '10px',
   },
   heading: {
     paddingLeft: '24px'
@@ -32,7 +28,7 @@ function TrackerDetails(props) {
   const { classes, angle } = props;
   return (
       
-        <Paper className={classes.root}>
+        <div className={classes.root}>
           <div className={classNames(classes.innerDiv,
            angle > 58 ? 'angle60' :
            angle > 56 ? 'angle58' :
@@ -97,7 +93,7 @@ function TrackerDetails(props) {
            'angle_60')}>
                Angle = {angle}
           </div>
-        </Paper>
+        </div>
   );
 }
 

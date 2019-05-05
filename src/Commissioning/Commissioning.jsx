@@ -87,6 +87,10 @@ const styles = theme => ({
   grid: {
     height: '516px',
     padding: '8px',
+  },
+  button:{
+    backgroundColor: '#54AAB3',
+    color: 'white',
   }
 });
 

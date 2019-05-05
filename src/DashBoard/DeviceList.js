@@ -6,8 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Button, TableHead, TableRow, TableCell, Table, TableBody } from '@material-ui/core';
 import { connect } from 'react-redux'
 import { dashBoardActions } from '../_actions';
-import WarningIcon from '@material-ui/icons/Warning';
-import DoneIcon from '@material-ui/icons/Done';
+import LoadingOverlay from 'react-loading-overlay';
 
 const styles = theme => ({
   root: {
@@ -79,8 +78,8 @@ const styles = theme => ({
     marginLeft: 'auto',
     height: 'fit-content',
     marginTop: 'auto',
+    backgroundColor: '#54AAB3',
   }
-  
 });
 
 class DeviceList extends Component {
@@ -96,13 +95,16 @@ class DeviceList extends Component {
       return (
         <Paper className={classes.root}>
             <Typography className={classes.heading} variant="headline" component="h3">
-              <p className={classes.head}>Trackers Discovered</p>
+              <p className={classes.head}>Trackers List</p>
               <Button variant="contained" className={classes.yellow} onClick={this.trigger}>
                           Trigger Discovery
             </Button>
             </Typography>
 
-
+            <LoadingOverlay
+                active={this.props.requestingTrackerInfo}
+                spinner
+              >
             <Table className={classes.table}>
               <TableHead>
               <TableRow>
@@ -110,26 +112,30 @@ class DeviceList extends Component {
                   <TableCell padding="none"><Typography variant="subheading">Status</Typography></TableCell>
               </TableRow>
               </TableHead>
-              <TableBody>
-                {data.map(n => {
-                    return (
-                    <TableRow
-                      hover
-                      onClick={() => this.props.getTrackerDetails(n.trackerID)}
-                      className={n.trackerID === selectedTrackerID ? classes.selected : classes.row}
-                      key={n.id}
-                    >
-                        <TableCell component="th" scope="row" padding="none">
-                            <Typography variant="body1">
-                                {n.trackerID}
-                            </Typography>
-                        </TableCell>
-                        <TableCell padding="none">{n.color === "red" ? <WarningIcon style={{ color: "red"}}/> : <DoneIcon style={{ color: "green"}}/>}</TableCell>
-                    </TableRow>
-                    );
-                })}
-              </TableBody>
+
+                <TableBody>
+                  {data.map(n => {
+                      return (
+                      <TableRow
+                        hover
+                        onClick={() => this.props.getTrackerDetails(n.trackerID)}
+                        className={n.trackerID === selectedTrackerID ? classes.selected : classes.row}
+                        key={n.id}
+                        style={{cursor: 'pointer'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none">
+                              <Typography variant="body1">
+                                  {n.trackerID}
+                              </Typography>
+                          </TableCell>
+                          <TableCell padding="none">{n.color === "red" ? <div style={{color: 'red'}}> Not Reachable </div> : <div style={{color: 'green'}}>Reachable</div>}</TableCell>
+                      </TableRow>
+                      );
+                  })}
+                </TableBody>
             </Table>
+            </LoadingOverlay>
+
         </Paper>
         
         /*             <Grid className={classes.table} container spacing={24} direction='row' alignItems='center'>
@@ -158,6 +164,13 @@ DeviceList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => {
+  const { requestingTrackerInfo } = state.dashBoard;
+  return {
+    requestingTrackerInfo
+  };
+}
+
 
 const mapDispatchToProps = (dispatch) => ({
   triggerDiscovery: () => {
@@ -165,4 +178,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
-export default connect(null, mapDispatchToProps)(withStyles(styles, { withTheme: true })(DeviceList));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(DeviceList));

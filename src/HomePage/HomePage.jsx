@@ -71,7 +71,7 @@ class HomePage extends React.Component {
               }
               if(data.message.includes("Rover"))
               {
-                func.props.setTrackerColor(res[1], (res[2] === "offline"? "red":"blue"));
+                func.props.setTrackerColor(res[1], (res[2] === "offline"? "red":"green"));
               }
               if(data.message.includes("CMD") && data.message.includes("DID"))
               {
