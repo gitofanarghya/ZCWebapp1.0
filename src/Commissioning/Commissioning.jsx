@@ -186,7 +186,7 @@ class Commissioning extends Component {
         return (
           <div className={classes.root} >
             <Grid  container justify="flex-start" direction="row" style={{height: '100%'}}>            
-              <Grid item  md={3}  xs={6} className={classes.grid}>
+              <Grid item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
                   <div> 
                       <Typography variant="h5" component="h3" className={classes.header}>
@@ -231,7 +231,7 @@ class Commissioning extends Component {
                 </Paper>
               </Grid>
 
-              <Grid  item  md={3}  xs={6} className={classes.grid}>
+              <Grid  item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
                          <div>  
                       <Typography variant="h5" component="h3" className={classes.header}>
@@ -280,7 +280,7 @@ class Commissioning extends Component {
                 </Paper>
               </Grid>
 
-              <Grid  item  md={3}  xs={6} className={classes.grid}>
+              <Grid  item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
                   <div>
                       <Typography variant="h5" component="h3" className={classes.header}>
@@ -428,7 +428,7 @@ class Commissioning extends Component {
                 </Paper>
               </Grid>
 
-              <Grid  item  md={3}  xs={6} className={classes.grid}>
+              <Grid  item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
                   <div>
                     <Typography variant="h5" component="h3" className={classes.header}>

@@ -11,7 +11,6 @@ import { Loading } from '../_components';
 import TrackerAngle from './TrackerAngle';
 import Paper from '@material-ui/core/Paper';
 
-
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -50,7 +49,12 @@ const styles = theme => ({
     },
     trackerDetails1: {
         height: '55%',
-    }
+    },
+    tracker1: {
+        [theme.breakpoints.down(600)]: {
+            height: 'inherit'
+          },
+    },
 });
 
 class DashBoard extends Component {
@@ -119,15 +123,17 @@ class DashBoard extends Component {
 
                     <br /> 
                     
-                    <Grid item xs={12} sm={6} className={classNames("flex")}>
+                    <Grid item xs={12} sm={6} className={classNames("flex", classes.tracker1)}>
                         <Paper className={classes.trackerDetails}>
                             <div style={{width: '100%', height: '100%'}}>
                                 <div onClick={this.handleApp} className={classNames("flex","flex1", classes.padBottom, classes.details)}>
+
                                 {loadedTrackerInfo &&
                                         <TrackerAngle angle={selectedTrackerDetails.currentAngle}/>
                                 }
                                 </div>
-
+                                <br />
+                                <br/>
                                 <div className={classes.trackerDetails1}>
                                     {loadedTrackerInfo &&
                                         <TrackerDetails 

@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { dashBoardConstants } from '../_constants';
 import { dashBoardService } from '../_services';
 
-
 export const dashBoardActions = {
     getCommissioningData,
     getCurrentTrackerInfo,

@@ -2,25 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
     width: '100%',
     height: '100%',
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit * 2,
+    position: 'relative'
   },
   heading: {
     paddingLeft: '24px'
   },
   innerDiv: {
-    width: '90%',
     height: '100%',
-    margin: 'auto'
+    margin: 'auto',
+    vertcalAlign: 'bottom'
   },  
   outerRow: {
     borderRight: '1px solid #e0e0e0'
+  },
+  angleText: {
+    position: 'absolute',
+    bottom: 0,
+    marginLeft: 'calc(50% - 45px)',
+    width: '80px'
+  },
+  para: {
+    margin: 0,
   }
 });
 
@@ -91,7 +102,12 @@ function TrackerDetails(props) {
            angle > -58 ? 'angle_56' :
            angle > -60 ? 'angle_58' :
            'angle_60')}>
+                                  <Typography className={classes.heading} variant="headline" component="h3">
+                                        <p className={classes.para}>Tracker Details</p>
+                                 </Typography>
+           <p className={classes.angleText}>
                Angle = {angle}
+          </p>
           </div>
         </div>
   );

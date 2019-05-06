@@ -5,7 +5,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 
 const styles = theme => ({
@@ -13,19 +12,17 @@ const styles = theme => ({
     width: '100%',
     overflowX: 'auto',
     ...theme.mixins.gutters(),
+    height: '100%',
   },
   heading: {
-    marginTop: '5px',
+    marginTop: '10px',
     paddingLeft: '24px',
     display: 'flex',
     padding: 'inherit',
+    marginBottom: '10px'
   },
   outerRow: {
     borderRight: '1px solid #e0e0e0',
-  },
-  para: {
-    marginTop: '0px',
-    marginBottom: '0px',
   },
   table: {
     width: '80%',
@@ -78,9 +75,6 @@ class TrackerDetails extends React.Component {
   
   return (
     <div className={classes.root}>
-        <Typography className={classes.heading} variant="headline" component="h3">
-          <p className={classes.para}>Tracker Details</p>
-        </Typography>
         <Table className={classes.table}>
             <TableBody>
                       <TableRow className={classes.tableRow}>

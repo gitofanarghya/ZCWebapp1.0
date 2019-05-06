@@ -69,6 +69,10 @@ const styles = theme => ({
       flexGrow: 1,
       backgroundColor: 'lightgrey',
       height: '100%',
+      [theme.breakpoints.down(600)]: {
+        height: 'fit-content',
+      },
+      width: '100%'
     },
   selected: {
     backgroundColor: "#54AAB3"

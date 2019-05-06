@@ -16,12 +16,13 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     margin: '10px',
+    position: 'relative',
+    
   },
   heading: {
-    marginTop: '5px',
     paddingLeft: '24px',
     display: 'flex',
-    padding: 'inherit',
+    marginBottom: '10px'
   },
   zoneImage: {
     height: '15%',
@@ -36,6 +37,9 @@ const styles = theme => ({
   },
   row: {
     maxHeight: '10px'
+  },
+  head: {
+    margin: 0,
   },
   image: {
     width: '35%',
@@ -72,20 +76,21 @@ const styles = theme => ({
   selected: {
     backgroundColor: 'lightgrey'
   },
-  head: {
-    marginBottom: '4px',
-  },
   yellow:{
     marginLeft: 'auto',
-    height: 'fit-content',
-    marginTop: 'auto',
-    backgroundColor: '#54AAB3',
-    color: 'white',
   },
   tableRow: {
     [theme.breakpoints.down('600')]: {
       height: '20px'
     },
+  },
+  trigger: {
+    position:'absolute',
+    bottom: 20,
+    right: 20,
+    height: 'fit-content',
+    backgroundColor: '#54AAB3',
+    color: 'white',
   }
 });
 
@@ -103,9 +108,6 @@ class DeviceList extends Component {
         <Paper className={classes.root}>
             <Typography className={classes.heading} variant="headline" component="h3">
               <p className={classes.head}>Trackers List</p>
-              <Button variant="contained" className={classes.yellow} onClick={this.trigger}>
-                          Trigger Discovery
-            </Button>
             </Typography>
 
             <LoadingOverlay
@@ -142,7 +144,9 @@ class DeviceList extends Component {
                 </TableBody>
             </Table>
             </LoadingOverlay>
-
+            <Button variant="contained" className={classes.trigger} onClick={this.trigger}>
+                          Trigger Discovery
+            </Button>
         </Paper>
         
         /*             <Grid className={classes.table} container spacing={24} direction='row' alignItems='center'>

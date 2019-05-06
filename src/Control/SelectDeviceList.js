@@ -19,26 +19,11 @@ const styles = theme => ({
     maxWidth: '100%',
     display: 'flex',
   },
-  red: {
-    height: '55px',
-    backgroundColor: '#54AAB3'
-  },
   button: {
-    margin: theme.spacing.unit * 2,
-  },
-  green: {
-    height: '55px',
-    backgroundColor: '#54AAB3'
-  },
-  orange: {
-    height: '55px',
-    backgroundColor: '#54AAB3'
-  },
-  yellow: {
-    height: '55px',
-    backgroundColor: '#54AAB3'
-  },
-  blue: {
+    marginTop: '10px',
+    marginBottom: '10px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     height: '55px',
     backgroundColor: '#54AAB3'
   },
@@ -50,13 +35,15 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
   }, 
   menuss: {
-    backgroundColor: '#54AAB3',
     width: '100px',
     borderRadius: '3px',
     color: 'black',
+    height: '55px',
+    margin: 'auto'
   },
   menus: {
-  
+    height: '55px',
+    margin: 'auto',
     width: '150px',
   } ,
   braod: {
@@ -171,17 +158,17 @@ class CheckboxListSecondary extends React.Component {
             </FormGroup>
 
             <Grid container justify="space-evenly">   
-              <Button variant="contained" disabled={!this.state.disable} className={classNames(classes.green, classes.button)} onClick={() => this.handleChange('WE', '00000')}>
+              <Button variant="contained" disabled={!this.state.disable} className={classes.button} onClick={() => this.handleChange('WE', '00000')}>
                 RUN WEST
                 <ArrowLeftIcon className={classes.rightIcon} />
               </Button>
 
-              <Button variant="contained" disabled={!this.state.disable} className={classNames(classes.blue, classes.button)} onClick={() => this.handleChange('ES', '00000')}>
+              <Button variant="contained" disabled={!this.state.disable} className={classes.button} onClick={() => this.handleChange('ES', '00000')}>
                 RUN EAST
                 <ArrowRightIcon className={classes.rightIcon} />
               </Button>
 
-              <Button variant="contained" disabled={!this.state.disable} className={classNames(classes.red, classes.button)} onClick={() => this.handleChange('SMTALStop', '00000')}>
+              <Button variant="contained" disabled={!this.state.disable} className={classes.button} onClick={() => this.handleChange('SMTALStop', '00000')}>
                 STOP
                 <StopIcon className={classes.rightIcon} />
               </Button>
@@ -192,7 +179,7 @@ class CheckboxListSecondary extends React.Component {
                 label="STOW"
                 name="stows"
                 value={this.state.stows}
-                className={classNames(classes.orange, classes.button, classes.braod, (!this.state.disable? classes.grey: null))}
+                className={classNames(classes.button, classes.braod, (!this.state.disable? classes.grey: null))}
                 disabled={!this.state.disable}
                 onChange={(e) => this.handleChange4(e)}
                 InputLabelProps={{
@@ -219,7 +206,7 @@ class CheckboxListSecondary extends React.Component {
               </TextField>
 
 
-              <Button variant="contained" disabled={!this.state.disable} className={classNames(classes.yellow, classes.button)} onClick={() => this.handleChange('SMTALReset', '00000')}>
+              <Button variant="contained" disabled={!this.state.disable} className={classes.button} onClick={() => this.handleChange('SMTALReset', '00000')}>
                 RESET
                 <AutorenewIcon className={classes.rightIcon} />
               </Button>
@@ -251,7 +238,11 @@ class CheckboxListSecondary extends React.Component {
                       className={classes.menus}
                       value={this.state.tracker}  
                       onChange={this.handleChange0}
-                      InputLabelProps={{ color: 'black'}}
+                      InputLabelProps={{
+                        classes: {
+                          root: classes.label,
+                        },
+                      }}
                       SelectProps={{
                         MenuProps: {
                           className: classes.menu,
@@ -269,17 +260,17 @@ class CheckboxListSecondary extends React.Component {
 
                     </TextField>
 
-                    <Button variant="contained" className={classes.green} onClick={(e) => this.handleChange2(e,'WE', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
+                    <Button variant="contained" disabled={this.state.tracker === '' ? true: false} className={classes.button} onClick={(e) => this.handleChange2(e,'WE', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
                       RUN WEST
                       <ArrowLeftIcon className={classes.rightIcon} />
                     </Button>
 
-                    <Button variant="contained"  className={classes.blue} onClick={(e) => this.handleChange2(e,'ES', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
+                    <Button variant="contained" disabled={this.state.tracker === '' ? true: false} className={classes.button} onClick={(e) => this.handleChange2(e,'ES', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
                       RUN EAST
                       <ArrowRightIcon className={classes.rightIcon} />
                     </Button>
 
-                    <Button variant="contained"  className={classes.red} onClick={(e) => this.handleChange2(e,'SMTALStop', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
+                    <Button variant="contained" disabled={this.state.tracker === '' ? true: false} className={classes.button} onClick={(e) => this.handleChange2(e,'SMTALStop', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
                       STOP
                       <StopIcon className={classes.rightIcon} />
                     </Button>
@@ -291,6 +282,8 @@ class CheckboxListSecondary extends React.Component {
                       name="stow"
                       value={this.state.stow}
                       className={classes.menuss}
+                      style={this.state.tracker === '' ? {backgroundColor: '#E1E1E1'} : {backgroundColor: '#54AAB3'}}
+                      disabled={this.state.tracker === '' ? true: false}
                       onChange={(e) => this.handleChange3(e, trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}
                       InputLabelProps={{
                         classes: {
@@ -313,7 +306,7 @@ class CheckboxListSecondary extends React.Component {
 
                     </TextField>
 
-                    <Button variant="contained" className={classes.yellow} onClick={(e) => this.handleChange2(e,'SMTALReset', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
+                    <Button variant="contained" disabled={this.state.tracker === '' ? true: false} className={classes.button} onClick={(e) => this.handleChange2(e,'SMTALReset', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
                         RESET
                         <AutorenewIcon className={classes.rightIcon} />
                     </Button>

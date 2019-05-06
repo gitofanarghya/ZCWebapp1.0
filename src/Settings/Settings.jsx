@@ -163,9 +163,8 @@ class Settings extends Component {
         
         return (
             <div className={classes.root}>
-            {this.props.heartBeatOK && this.props.thresholdOK &&
               <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
-                <Grid item md={3}  xs={6}  className={classes.grid} >
+                <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                   <Paper className={classes.paper}>
                     <div>
                       <Typography variant="h5" component="h3" className={classes.header}>
@@ -310,7 +309,7 @@ class Settings extends Component {
                   </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={6}  className={classes.grid} >
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
                 <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
@@ -387,7 +386,7 @@ class Settings extends Component {
                 </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={6}  className={classes.grid} >
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
                 <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
@@ -432,7 +431,7 @@ class Settings extends Component {
                 </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={6}  className={classes.grid} >
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
                 <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
@@ -474,7 +473,6 @@ class Settings extends Component {
                 </Paper>
               </Grid>
             </Grid>
-            }
       </div>
         );
     }
