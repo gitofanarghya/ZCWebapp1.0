@@ -1,5 +1,6 @@
 import { commissioningConstants } from '../_constants';
 import { commissioningService } from '../_services';
+import { dashBoardActions } from './dashBoard.actions';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -48,6 +49,7 @@ function upload(file) {
             .then(
                 ok => { 
                     dispatch(success(ok.toString()));
+		    dashBoardActions.getCommissioningData();
                     toast('successfully uploaded!', {
                         position: "bottom-right"
                       });

@@ -58,9 +58,6 @@ class DashBoard extends Component {
         })
     }
 
-    componentDidMount() {
-        this.props.getCommissioningData()
-    }
 
     inter = {} 
 
@@ -153,9 +150,6 @@ const mapDispatchToProps = (dispatch) => ({
     getCurrentTrackerInfo: (trackerID) => {
         dispatch(dashBoardActions.getCurrentTrackerInfo(trackerID)) 
     },
-    getCommissioningData: () => {
-        dispatch(dashBoardActions.getCommissioningData()) 
-    }
 })
 
 const connectedDashBoard = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(DashBoard));
