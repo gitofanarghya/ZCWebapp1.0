@@ -63,15 +63,20 @@ class Settings extends Component {
         ssid: '',
         password: '',
         submitted: false,
-        panID: '',
+        panID: {
+          "panID": null
+        },
         enabled: '',
-        maxWindSpeed: 5,
-        maxRainFall: 5,
-        meanWindSpeed: 2,
-        windSpeedTimer: 30,
-        maxFloodLevel: 20,
-        maxSnowFall: 10,
+        maxWindSpeed: null,
+        maxRainFall: null,
+        meanWindSpeed: null,
+        windSpeedTimer: null,
+        maxFloodLevel: null,
+        maxSnowFall: null,
         timeZone1: "Asia/Kolkata",
+        timeZone: null,
+        hbinterval: null,
+        maxMsgs: null,
         default1: 20,
 	      thresholdOK: false,
 	      heartBeatOK: false,
@@ -84,8 +89,8 @@ class Settings extends Component {
         panid1:0, 
         maxFloodLevel1: 20,
         maxSnowFall1: 10,
-        powerRequestTimePeriod: 0,
-        statusRequestTimePeriod: 0,
+        powerRequestTimePeriod: null,
+        statusRequestTimePeriod: null,
         powerRequestTimePeriod1: 0,
         statusRequestTimePeriod1: 0,
         labelWidth: 0,
@@ -197,6 +202,7 @@ class Settings extends Component {
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
+                              InputLabelProps={{ shrink: this.state.maxWindSpeed? true:false }}
                           />
 
                           <br />
@@ -212,6 +218,7 @@ class Settings extends Component {
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
+                              InputLabelProps={{ shrink: this.state.meanWindSpeed? true:false }}
                           />
                           <br />
                           <TextField
@@ -226,6 +233,7 @@ class Settings extends Component {
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">s</InputAdornment>,
                               }}
+                              InputLabelProps={{ shrink: this.state.windSpeedTimer? true:false }}
                           />
                           <br />
                         </div>
@@ -244,6 +252,7 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">mm</InputAdornment>,
                             }}
+                            InputLabelProps={{ shrink: this.state.maxRainFall? true:false }}
                         />
                                                         
                         <TextField
@@ -258,6 +267,7 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
                             }}
+                            InputLabelProps={{ shrink: this.state.maxFloodLevel? true:false }}
                         />
                         <br />
                         <TextField
@@ -272,6 +282,7 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
                             }}
+                            InputLabelProps={{ shrink: this.state.maxSnowFall? true:false }}
                         />
 
                       </Grid>
@@ -335,6 +346,7 @@ class Settings extends Component {
                         InputProps={{
                           endAdornment: <InputAdornment position="end">s</InputAdornment>,
                         }}
+                        InputLabelProps={{ shrink: this.state.hbinterval? true:false }}
                     />
 
                     <br />
@@ -349,7 +361,10 @@ class Settings extends Component {
                         className={classes.field}
                         disabled={this.state.enabled === "disabled"}
                         value={this.state.maxMsgs}
-
+                        InputProps={{
+                          endAdornment: <InputAdornment position="end">msgs</InputAdornment>,
+                        }}
+                        InputLabelProps={{ shrink: this.state.maxMsgs? true:false }}
                     />
 
                     <br /><br />   
@@ -388,6 +403,7 @@ class Settings extends Component {
                       }}
                       margin="normal"
                       variant="outlined"
+                      InputLabelProps={{ shrink: this.state.timeZone? true:false }}
                     >
                       {timezones.map(t => 
                                   <MenuItem key={t.value} value={t}>{t.text.split(' ')[0]} {t.value} - {t.abbr}</MenuItem>
@@ -430,6 +446,7 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">s</InputAdornment>,
                             }}
+                            InputLabelProps={{ shrink: this.state.powerRequestTimePeriod? true:false }}
                         />
                         <br />
                         <TextField
@@ -444,6 +461,7 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">s</InputAdornment>,
                             }}
+                            InputLabelProps={{ shrink: this.state.statusRequestTimePeriod? true:false }}
                         />
                         <br /><br />
                   </form>
@@ -474,6 +492,7 @@ class Settings extends Component {
                                   variant="outlined"
                                   className={classes.field}
                                   value={this.state.panID.panID}
+                                  InputLabelProps={{ shrink: this.state.panID.panID? true:false }}
                               />
                               <br />
                               <br />
@@ -542,4 +561,3 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectedSettings = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(Settings));
 export { connectedSettings as Settings };
-

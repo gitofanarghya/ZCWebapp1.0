@@ -259,7 +259,7 @@ class Commissioning extends Component {
                               </Grid>
 
                               <Grid item xs={4}>
-                                <Button component="span" variant="outlined" className={classes.inputButton}>
+                                <Button variant="contained" component="span" color="primary" className={classes.inputButton}>
                                   BROWSE
                                 </Button>
                               </Grid>
@@ -453,7 +453,7 @@ class Commissioning extends Component {
                                 {this.state.selectedKey && <p className={classes.underline}>{this.state.selectedKey['name']}</p>}
                               </Grid>
                               <Grid item xs={4}>
-                                <Button component="span" variant="outlined" className={classes.inputButton}>
+                                <Button variant="contained" component="span" color="primary" className={classes.inputButton}>
                                   BROWSE
                                 </Button>
                               </Grid>
