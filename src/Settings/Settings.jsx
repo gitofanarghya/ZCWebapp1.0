@@ -153,7 +153,18 @@ class Settings extends Component {
       if(this.props !== nextProps)
       {
         this.setState({
-          ...nextProps, timeZone1: nextProps.timezone
+          maxWindSpeed: nextProps.maxWindSpeed1,
+          meanWindSpeed: nextProps.meanWindSpeed1,
+          windSpeedTimer: nextProps.windSpeedTimer1,
+          maxRainFall: nextProps.maxRainFall1,
+          maxFloodLevel: nextProps.maxFloodLevel1,
+          maxSnowFall: nextProps.maxSnowFall1,
+          hbinterval: nextProps.hbinterval1,
+          maxMsgs: nextProps.maxMsgs1,
+          timeZone: nextProps.timezone,
+          powerRequestTimePeriod: nextProps.powerRequestTimePeriod1,
+          statusRequestTimePeriod: nextProps.statusRequestTimePeriod1,
+          panID: nextProps.panid1,
         })
       }
     }
@@ -163,9 +174,7 @@ class Settings extends Component {
         
         return (
             <div className={classes.root}>
-                            {this.props.thresholdOK && this.props.heartBeatOK &&
               <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
-
                 <Grid item md={6}  xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
                   <div>
@@ -182,7 +191,7 @@ class Settings extends Component {
                               placeholder="Maximum Wind Speed"
                               onChange={this.handleChange}
                               margin="normal"
-                              defaultValue={this.props.maxWindSpeed1}
+                              value={this.state.maxWindSpeed}
                               variant="outlined"
                               className={classes.field}
                               InputProps={{
@@ -199,7 +208,7 @@ class Settings extends Component {
                               margin="normal"
                               variant="outlined"
                               className={classes.field}
-                              defaultValue={this.props.meanWindSpeed1}
+                              value={this.state.meanWindSpeed}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
@@ -213,7 +222,7 @@ class Settings extends Component {
                               margin="normal"
                               variant="outlined"
                               className={classes.field}
-                              defaultValue={this.props.windSpeedTimer1}
+                              value={this.state.windSpeedTimer}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">s</InputAdornment>,
                               }}
@@ -231,7 +240,7 @@ class Settings extends Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
-                            defaultValue={this.props.maxRainFall1}
+                            value={this.state.maxRainFall}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">mm</InputAdornment>,
                             }}
@@ -245,7 +254,7 @@ class Settings extends Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
-                            defaultValue={this.props.maxFloodLevel1}
+                            value={this.state.maxFloodLevel}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
                             }}
@@ -259,7 +268,7 @@ class Settings extends Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
-                            defaultValue={this.props.maxSnowFall1}
+                            value={this.state.maxSnowFall}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
                             }}
@@ -322,7 +331,7 @@ class Settings extends Component {
                         variant="outlined"
                         className={classes.field}
                         disabled={this.state.enabled === "disabled"}
-                        defaultValue={this.props.hbinterval1}
+                        value={this.state.hbinterval}
                         InputProps={{
                           endAdornment: <InputAdornment position="end">s</InputAdornment>,
                         }}
@@ -339,10 +348,8 @@ class Settings extends Component {
                         variant="outlined"
                         className={classes.field}
                         disabled={this.state.enabled === "disabled"}
-                        defaultValue={this.props.maxMsgs1}
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">msgs</InputAdornment>,
-                        }}
+                        value={this.state.maxMsgs}
+
                     />
 
                     <br /><br />   
@@ -370,8 +377,8 @@ class Settings extends Component {
                       id="timeZone-simple"
                       select
                       label="Select Time Zone"
-                      value={this.state.timeZone1}
-                      name="timeZone1"
+                      value={this.state.timeZone}
+                      name="timeZone"
                       className={classes.menu}
                       onChange={this.handleChange}
                       SelectProps={{
@@ -419,7 +426,7 @@ class Settings extends Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
-                            defaultValue={this.props.powerRequestTimePeriod1}
+                            value={this.state.powerRequestTimePeriod}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">s</InputAdornment>,
                             }}
@@ -433,7 +440,7 @@ class Settings extends Component {
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
-                            defaultValue={this.props.statusRequestTimePeriod1}
+                            value={this.state.statusRequestTimePeriod}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">s</InputAdornment>,
                             }}
@@ -466,7 +473,7 @@ class Settings extends Component {
                                   onChange={this.handleChange}
                                   variant="outlined"
                                   className={classes.field}
-                                  defaultValue={this.props.panid1.panID}
+                                  value={this.state.panID.panID}
                               />
                               <br />
                               <br />
@@ -481,7 +488,6 @@ class Settings extends Component {
                   </Paper>
                 </Grid>
             </Grid>
-                            }
       </div>
         );
     }
@@ -536,3 +542,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 const connectedSettings = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(Settings));
 export { connectedSettings as Settings };
+
