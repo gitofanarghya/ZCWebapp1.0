@@ -92,6 +92,17 @@ class DashBoard extends Component {
         })
     }
 
+    componentDidMount(){
+        if(this.props.selectedTrackerID)
+        {
+            var func = this;
+            clearInterval(this.inter);
+            this.inter = setInterval(() => {
+                func.props.getCurrentTrackerInfo(this.props.selectedTrackerID);
+            }, 8000)
+        }
+    }
+
 
     inter = {} 
 
@@ -124,6 +135,10 @@ class DashBoard extends Component {
             this.setState({trackerIDforColor: nextProps.trackerColor.trackerID});
             this.setState({trackercolor: nextProps.trackerColor.color});
         }
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.inter);
     }
 
     render(){

@@ -153,7 +153,7 @@ class TrackerDetails extends React.Component {
                               Device ID
                               </Typography>
                           </TableCell>
-                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.deviceID?data.devicerID: '--'} </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{this.props.deviceID?this.props.deviceID: '--'} </TableCell>
                       </TableRow>
 
                       <TableRow
