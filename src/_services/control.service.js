@@ -150,10 +150,18 @@ if(command === "ES" && macID !== '00000'){
         });
 }
 
-if(command === "SMTALReset"){
+if(command === "SMTALReset" && macID === '00000'){
     requestOptions["body"] = JSON.stringify({
             "CMD" : "RESET",
             "DID": "00000",
+        });
+}
+
+if(command === "SMTALReset" && macID !== '00000'){
+    requestOptions["body"] = JSON.stringify({
+            "CMD" : "RESET",
+            "DID": deviceID,
+            "macID": macID,
         });
 }
 

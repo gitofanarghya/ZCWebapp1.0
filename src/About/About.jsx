@@ -11,6 +11,7 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     textAlign: 'center',
+    marginTop: '10px',
   },
   image: {
     backgroundImage: 'url(/img/openApp.png)',

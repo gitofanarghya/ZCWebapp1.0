@@ -29,9 +29,12 @@ const styles = theme => ({
   paper: {
       width: '100%',
       verticalAlign: 'middle',
-        position: 'relative',
-        textAlign: 'center',
-        height: '400px',
+      position: 'relative',
+      textAlign: 'center',
+      height: '400px',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
   },
   menu: {
    width: '75%',
@@ -44,12 +47,14 @@ const styles = theme => ({
     height: '412px',
     padding: '6px',
   },
+  button:{
+    backgroundColor: '#54AAB3',
+    color: 'white',
+    marginBottom: '20px',
+  },
   field: {
-    [theme.breakpoints.down('lg')]: {
-   width: '80%',
- },
- width: '60%',
-}
+    width: '80%',
+  }
 });
 
 class Settings extends Component {
@@ -158,37 +163,12 @@ class Settings extends Component {
         
         return (
             <div className={classes.root}>
-            {this.props.heartBeatOK && this.props.thresholdOK &&
+                            {this.props.thresholdOK && this.props.heartBeatOK &&
               <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
-                <Grid item md={3}  xs={6}  className={classes.grid} >
-                  <Paper className={classes.paper}>
-                    <Typography variant="h5" component="h3" className={classes.header}> 
-                        Set XBEE config
-                    </Typography>
-                    <br />
-                    
-                    <form onSubmit={this.handleSubmit } >
-                            <TextField
-                                name="panID"
-                                label="PAN ID"
-                                placeholder="Enter the PAN ID"
-                                margin="none"
-                                onChange={this.handleChange}
-                                variant="outlined"
-                                className={classes.field}
-                                defaultValue={this.props.panid1.panID}
-                            />
-                            <br />
-                            <br />
-                            <Button type="submit" className={classes.button} onClick={this.handleClick} variant="outlined">
-                                Submit
-                            </Button>
-                    </form>
-                  </Paper>
-                </Grid>
 
                 <Grid item md={6}  xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
+                  <div>
                     <Typography variant="h5" component="h3" className={classes.header}>
                         Threshold
                     </Typography>
@@ -290,15 +270,18 @@ class Settings extends Component {
                     </Grid>
 
                     <br /><br />
-
-                    <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="outlined">
-                        Submit
-                    </Button>
+                    </div>
+                    <div>
+                      <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="contained" color="primary" >
+                          Submit
+                      </Button>
+                    </div>
                   </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={6}  className={classes.grid} >
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
+                <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
                       Heart Beat Settings
                   </Typography>
@@ -362,19 +345,20 @@ class Settings extends Component {
                         }}
                     />
 
-                    <br /><br />
-
-                    <center>
-                        <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="outlined">
-                            Submit
-                        </Button>
-                    </center>
+                    <br /><br />   
                   </form>
+                </div>
+                <div>
+                  <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="contained" color="primary" >
+                              Submit
+                  </Button>
+                </div>
                 </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={6}  className={classes.grid} >
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
+                <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
                       Select Time Zone
                   </Typography>
@@ -407,19 +391,21 @@ class Settings extends Component {
                     </TextField>
             
                     <br /><br />
-                    <center>
-                        <Button className={classes.button} onClick={this.handleTimeZone} variant="outlined">
-                            Submit
-                        </Button>
-                    </center>
                   </form>
+                </div>
+                <div>
+                  <Button className={classes.button} onClick={this.handleTimeZone} variant="contained" color="primary" >
+                              Submit
+                  </Button>
+                </div>
                 </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={6}  className={classes.grid} >
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
+                <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
-                    Select Frequency
+                    Request Frequency
                   </Typography>
 
                   <br />
@@ -427,8 +413,8 @@ class Settings extends Component {
                   <form onSubmit={this.handleSubmit} >
                         <TextField
                             name="powerRequestTimePeriod"
-                            label="Power Request Time Interval"
-                            placeholder="Power Request Time Interval"
+                            label="Power"
+                            placeholder="Power"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
@@ -441,8 +427,8 @@ class Settings extends Component {
                         <br />
                         <TextField
                             name="statusRequestTimePeriod"
-                            label="Status Request Time Interval"
-                            placeholder="Status Request Time Interval"
+                            label="Status"
+                            placeholder="Status"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
@@ -453,16 +439,49 @@ class Settings extends Component {
                             }}
                         />
                         <br /><br />
-                        <center>
-                            <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="outlined">
-                                Submit
-                            </Button>
-                        </center>
                   </form>
+                </div>
+                <div>
+                  <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="contained" color="primary" >
+                      Submit
+                  </Button>
+                </div>
                 </Paper>
               </Grid>
+
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
+                  <Paper className={classes.paper}>
+                    <div>
+                      <Typography variant="h5" component="h3" className={classes.header}>
+                          Set XBEE config
+                      </Typography>
+                      <br />
+                      
+                      <form onSubmit={this.handleSubmit } >
+                              <TextField
+                                  name="panID"
+                                  label="PAN ID"
+                                  placeholder="Enter the PAN ID"
+                                  margin="none"
+                                  onChange={this.handleChange}
+                                  variant="outlined"
+                                  className={classes.field}
+                                  defaultValue={this.props.panid1.panID}
+                              />
+                              <br />
+                              <br />
+                      </form>
+                    </div>
+                    
+                    <div>
+                      <Button type="submit" className={classes.button} onClick={this.handleClick} variant="contained" color="primary" >
+                          Submit
+                      </Button>
+                    </div>
+                  </Paper>
+                </Grid>
             </Grid>
-          }
+                            }
       </div>
         );
     }
