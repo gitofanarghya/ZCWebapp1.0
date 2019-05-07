@@ -38,6 +38,7 @@ class HomePage extends React.Component {
     logObj ={}
 
     componentDidMount() {
+	this.props.getCommissioningData();
         var func = this;
         var socket = io(`http://${this.hostname}`);
         socket.on("connect", () => {

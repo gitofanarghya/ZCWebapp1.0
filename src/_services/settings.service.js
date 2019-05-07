@@ -2,12 +2,13 @@ export const settingsService = {
     setPanID,
     threshold,
     heartBeat,
-    timeZone,
+    setTimeZone,
     getHeartBeat,
     getThreshold,
     getPanID,
     getFrequency,
     setFrequency,
+    getTimeZone,
 };
 
 const hostName = window.location.hostname+ ':5000';
@@ -79,7 +80,7 @@ function heartBeat(enabled, hbinterval, maxMsgs) {
         .then(handleResponse)
 }
 
-function timeZone(time) {
+function setTimeZone(time) {
     const requestOptions = {
         method: "POST",
         mode: 'cors',
@@ -88,7 +89,19 @@ function timeZone(time) {
         })
     };
 
-    return fetch(`http://${hostName}/setTimeZone`, requestOptions)
+    return fetch(`http://${hostName}/set/timeZone`, requestOptions)
+        .then(handleResponse)
+}
+
+
+function getTimeZone() {
+    const requestOptions = {
+        method: "GET",
+        mode: 'cors',
+        body: null
+    };
+
+    return fetch(`http://${hostName}/get/timeZone`, requestOptions)
         .then(handleResponse)
 }
 

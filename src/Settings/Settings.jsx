@@ -22,7 +22,7 @@ const styles = theme => ({
     height: 'calc(100% - 64px)',
     width: '100%',
     overflow: 'auto',
-  }, 
+  },
   header: {
     padding: '10px',
   },
@@ -165,6 +165,7 @@ class Settings extends Component {
             <div className={classes.root}>
                             {this.props.thresholdOK && this.props.heartBeatOK &&
               <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
+
                 <Grid item md={6}  xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
                   <div>
@@ -523,7 +524,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(settingsActions.heartBeat(enabled, hbinterval, maxMsgs))
     },
     setTimeZone: (time) => {
-        dispatch(settingsActions.timeZone(time))
+        dispatch(settingsActions.setTimeZone(time))
     },
     getSettings: () => {
         dispatch(settingsActions.getSettings());

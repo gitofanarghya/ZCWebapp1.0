@@ -5,16 +5,7 @@ const initialState = {
   sent1:  false,
   sending2: false,
   sent2:  false,
-  timezone: {
-    "value": "India Standard Time",
-    "abbr": "IST",
-    "offset": 5.5,
-    "isdst": false,
-    "text": "(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi",
-    "utc": [
-      "Asia/Kolkata"
-    ]
-  },
+  timezone: {},
   maxWindSpeed1: 0,
   maxRainFall1: 0,
   meanWindSpeed1: 0,
@@ -27,6 +18,7 @@ const initialState = {
   panidOK: false,
   thresholdOK: false,
   heartBeatOK: false,
+  timeZoneSet: false
 }
 
 export function settings(state, action) {
@@ -115,7 +107,8 @@ export function settings(state, action) {
     case settingsConstants.SET_TIMEZONE_SUCCESS:
       return {
         ...state,
-        timezone: action.timezone
+        timezone: action.timezone,
+        timeZoneSet: true
       };
     case settingsConstants.SET_TIMEZONE_FAILURE:
       return {
@@ -125,6 +118,21 @@ export function settings(state, action) {
         sent2: false
       };
 
+
+
+    case settingsConstants.GET_TIMEZONE_REQUEST:
+    return {
+      ...state,
+    };
+    case settingsConstants.GET_TIMEZONE_SUCCESS:
+    return {
+      ...state,
+      timezone: action.timezone
+    };
+    case settingsConstants.GET_TIMEZONE_FAILURE:
+    return {
+      ...state,
+    };
 
 
 
