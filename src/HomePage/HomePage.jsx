@@ -38,6 +38,7 @@ class HomePage extends React.Component {
     logObj ={}
 
     componentDidMount() {
+	this.props.getCommissioningData();
         var func = this;
         var socket = io(`http://${this.hostname}`);
         socket.on("connect", () => {
@@ -71,7 +72,7 @@ class HomePage extends React.Component {
               }
               if(data.message.includes("Rover"))
               {
-                func.props.setTrackerColor(res[1], (res[2] === "offline"? "red":"blue"));
+                func.props.setTrackerColor(res[1], (res[2] === "offline"? "red":"green"));
               }
               if(data.message.includes("CMD") && data.message.includes("DID"))
               {

@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { Button, TableHead, TableRow, TableCell, Table, TableBody } from '@material-ui/core';
 import { connect } from 'react-redux'
 import { dashBoardActions } from '../_actions';
-import WarningIcon from '@material-ui/icons/Warning';
-import DoneIcon from '@material-ui/icons/Done';
+import LoadingOverlay from 'react-loading-overlay';
+import classNames from 'classnames';
 
 const styles = theme => ({
   root: {
@@ -16,12 +16,12 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     margin: '10px',
+    position: 'relative',
+    
   },
   heading: {
-    marginTop: '5px',
-    paddingLeft: '24px',
     display: 'flex',
-    padding: 'inherit',
+    marginBottom: '10px'
   },
   zoneImage: {
     height: '15%',
@@ -36,6 +36,9 @@ const styles = theme => ({
   },
   row: {
     maxHeight: '10px'
+  },
+  head: {
+    margin: 0,
   },
   image: {
     width: '35%',
@@ -70,17 +73,26 @@ const styles = theme => ({
 
   },
   selected: {
-    backgroundColor: 'lightgrey'
-  },
-  head: {
-    marginBottom: '4px',
+    backgroundColor: '#54AAB3',
+    "&:hover": {
+      backgroundColor: "#3a767d !important"
+    }
   },
   yellow:{
     marginLeft: 'auto',
+  },
+  tableRow: {
+    [theme.breakpoints.down('600')]: {
+      height: '20px'
+    },
+  },
+  trigger: {
+    position:'absolute',
+    bottom: 20,
+    right: 20,
     height: 'fit-content',
-    marginTop: 'auto',
+    color: 'white',
   }
-  
 });
 
 class DeviceList extends Component {
@@ -96,40 +108,46 @@ class DeviceList extends Component {
       return (
         <Paper className={classes.root}>
             <Typography className={classes.heading} variant="headline" component="h3">
-              <p className={classes.head}>Trackers Discovered</p>
-              <Button variant="contained" className={classes.yellow} onClick={this.trigger}>
-                          Trigger Discovery
-            </Button>
+              <p className={classes.head}>Trackers List</p>
             </Typography>
 
-
+            <LoadingOverlay
+                active={this.props.requestingTrackerInfo}
+                spinner
+              >
             <Table className={classes.table}>
               <TableHead>
-              <TableRow>
-                  <TableCell padding="none"><Typography variant="subheading" >TrackerID</Typography></TableCell>
-                  <TableCell padding="none"><Typography variant="subheading">Status</Typography></TableCell>
+              <TableRow className={classes.tableRow}>
+                  <TableCell  style={{ padding: '5px', height: 'auto !important'}}><Typography variant="subheading" >TrackerID</Typography></TableCell>
+                  <TableCell  style={{ padding: '5px', height: 'auto !important'}}><Typography variant="subheading">Status</Typography></TableCell>
               </TableRow>
               </TableHead>
-              <TableBody>
-                {data.map(n => {
-                    return (
-                    <TableRow
-                      hover
-                      onClick={() => this.props.getTrackerDetails(n.trackerID)}
-                      className={n.trackerID === selectedTrackerID ? classes.selected : classes.row}
-                      key={n.id}
-                    >
-                        <TableCell component="th" scope="row" padding="none">
-                            <Typography variant="body1">
-                                {n.trackerID}
-                            </Typography>
-                        </TableCell>
-                        <TableCell padding="none">{n.color === "red" ? <WarningIcon style={{ color: "red"}}/> : <DoneIcon style={{ color: "green"}}/>}</TableCell>
-                    </TableRow>
-                    );
-                })}
-              </TableBody>
+
+                <TableBody>
+                  {data.map(n => {
+                      return (
+                      <TableRow
+                        hover
+                        onClick={() => this.props.getTrackerDetails(n.trackerID)}
+                        className={classNames(n.trackerID === selectedTrackerID ? classes.selected : classes.row, classes.tableRow)}
+                        key={n.id}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1" style={ n.trackerID === selectedTrackerID ? {color: 'white'}: null}>
+                                  {n.trackerID}
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important',fontSize: '14px'}}>{n.color === "red" ? (n.trackerID === selectedTrackerID ? <div style={{color: 'white' }}> Not Reachable </div>: <div style={{color: '#981e15' }}> Not Reachable </div>): (n.trackerID === selectedTrackerID ? <div style={{color: 'white' }}> Reachable </div>: <div style={{color: 'green' }}> Reachable </div>)}</TableCell>
+                      </TableRow>
+                      );
+                  })}
+                </TableBody>
             </Table>
+            </LoadingOverlay>
+            <Button variant="contained" color="primary" className={classes.trigger} onClick={this.trigger}>
+                          Trigger Discovery
+            </Button>
         </Paper>
         
         /*             <Grid className={classes.table} container spacing={24} direction='row' alignItems='center'>
@@ -158,6 +176,13 @@ DeviceList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => {
+  const { requestingTrackerInfo } = state.dashBoard;
+  return {
+    requestingTrackerInfo
+  };
+}
+
 
 const mapDispatchToProps = (dispatch) => ({
   triggerDiscovery: () => {
@@ -165,4 +190,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
-export default connect(null, mapDispatchToProps)(withStyles(styles, { withTheme: true })(DeviceList));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(DeviceList));

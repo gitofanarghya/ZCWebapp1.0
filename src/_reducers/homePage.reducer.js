@@ -1,7 +1,7 @@
 import { homePageConstants } from '../_constants';
 
 const initialState = {
-    currentPage: 'Dashboard'
+    currentPage: 'Commissioning'
 }
 
 export function homePage(state, action) {

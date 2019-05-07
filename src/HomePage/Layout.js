@@ -44,12 +44,13 @@ const styles = theme => ({
     [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
-    backgroundColor: '#575A5D'
+    backgroundColor: '	#54AAB3'
   },
   navIconHide: {
     [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
+    color: 'white'
   },
   toolbar: {
     [theme.breakpoints.down('sm')]: {
@@ -69,9 +70,11 @@ const styles = theme => ({
       flexGrow: 1,
       backgroundColor: 'lightgrey',
       height: '100%',
+
+      width: '100%'
     },
   selected: {
-    backgroundColor: "lightskyblue"
+    backgroundColor: "#54AAB3"
   },
   search: {
     margin: 'auto',
@@ -116,6 +119,7 @@ const styles = theme => ({
   },
   typo: {
     overflow: 'initial',
+    color: 'white'
   },
 
   val: {
@@ -148,16 +152,20 @@ class ResponsiveDrawer extends React.Component {
       "swversion": "1.1.20190411",
       "hwversion": "2.0",
       "trackerID": "",
-    }
+    },
+    current: 'Commissioning',
+    keyy: 0,
   };
 
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  handleCloseDrawer = (currentPage) => {
+  handleCloseDrawer = (e,currentPage) => {
     this.props.setCurrentPage(currentPage);
     this.setState({mobileOpen: false});
+    this.setState({current: currentPage});
+    console.log(this.state.current);
   }
 
   hostname = window.location.hostname +':1111';
@@ -189,50 +197,51 @@ class ResponsiveDrawer extends React.Component {
 
   render() {
     const { classes, theme, children } = this.props;
+    console.log(this.state.current);
     const drawer = (
       <div>
         <div className={classNames(classes.toolbar, "ftclogo")} />
         <Divider />
-        <ListItem button onClick={() => this.handleCloseDrawer("Dashboard")} className={this.props.selected === 'Dashboard' || !this.props.selected ? classes.selected : ""}>
+        <ListItem button key={this.state.keyy} onClick={(e) => this.handleCloseDrawer(e,"Dashboard")} style={{backgroundColor: this.state.current === "Dashboard"? "#54AAB3": null}}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary={<Typography style={{color: this.state.current === "Dashboard"? "white": "black"}}>Dashboard</Typography>}/>
         </ListItem>
 
-        <ListItem button onClick={() => this.handleCloseDrawer("Control")} className={this.props.selected === 'Control' ? classes.selected : ""}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Control")} style={{backgroundColor: this.state.current === "Control"? "#54AAB3": null}}>
           <ListItemIcon>
             <SendIcon />
           </ListItemIcon>
-          <ListItemText primary="Control" />
+          <ListItemText primary={<Typography style={{color: this.state.current === "Control"? "white": "black"}}>Tracker Control</Typography>}/>
         </ListItem>
 
-        <ListItem button onClick={() => this.handleCloseDrawer("Commissioning")} className={this.props.selected === 'Commissioning' ? classes.selected : ""}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Commissioning")} style={{backgroundColor: this.state.current === "Commissioning"? "#54AAB3": null}}>
           <ListItemIcon>
             <NetworkWifiIcon />
           </ListItemIcon>
-          <ListItemText primary="Commissioning" />
+          <ListItemText primary={<Typography style={{color: this.state.current === "Commissioning"? "white": "black"}}>Commissioning</Typography>} />
         </ListItem>
 
-        <ListItem button onClick={() => this.handleCloseDrawer("Settings")} className={this.props.selected === 'Settings' ? classes.selected : ""}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Settings")} style={{backgroundColor: this.state.current === "Settings"? "#54AAB3": null}}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary="Settings" />
+          <ListItemText primary={<Typography style={{color: this.state.current === "Settings"? "white": "black"}}>Settings</Typography>} />
         </ListItem>
 
-        <ListItem button onClick={() => this.handleCloseDrawer("Logs")} className={this.props.selected === 'Logs' ? classes.selected : ""}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Logs")} style={{backgroundColor: this.state.current === "Logs"? "#54AAB3": null}}>
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
-          <ListItemText primary="Logs" />
+          <ListItemText primary={<Typography style={{color: this.state.current === "Logs"? "white": "black"}}>Logs</Typography>}/>
         </ListItem>
 
-        <ListItem button onClick={() => this.handleCloseDrawer("About")} className={this.props.selected === 'About' ? classes.selected : ""}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"About")} style={{backgroundColor: this.state.current === "About"? "#54AAB3": null}}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
-          <ListItemText primary="About" />
+          <ListItemText primary={<Typography style={{color: this.state.current === "About"? "white": "black"}}>About</Typography>}/>
         </ListItem>
 
         <Divider />
@@ -246,7 +255,7 @@ class ResponsiveDrawer extends React.Component {
         <AppBar className={classes.appBar} >
           <Toolbar style={{overflow:"auto"}} className={classes.tool}>
             <IconButton
-              color="inherit"
+              color="white"
               aria-label="Open drawer"
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}
@@ -283,15 +292,6 @@ class ResponsiveDrawer extends React.Component {
                         }
                       </Grid>
 
-                      <Grid item>
-                        <Paper className={classes.paper} >
-                          <center><div className={classes.val}>
-                          <b>S/W </b> {this.state.buttonObject["swversion"]}</div>
-                          <div className={classes.val}>
-                          <b>H/W </b> {this.state.buttonObject["hwversion"]}</div></center>
-                        </Paper>
-                      </Grid>
-
                       {/*                     
                         <Grid key={0} item >
                           <Paper className={classes.paper} >
@@ -302,8 +302,10 @@ class ResponsiveDrawer extends React.Component {
 
                       <Grid key={0} item >
                        <Paper className={classes.paper} >
+                       {this.props.timeZoneSet === true &&
                          <center><div className={classes.keyy}><b>Time</b></div> <div className={classes.val}> <Clock format={'HH:mm:ss'} ticking={true} timezone={this.props.timezone.utc[0]} /> &nbsp; {this.props.timezone.abbr}</div></center>
-                       </Paper>
+                       }
+                         </Paper>
                      </Grid>
 
                     </Grid>
@@ -359,13 +361,16 @@ ResponsiveDrawer.propTypes = {
 
 const mapStateToProps = (state) => {
   const { windSpeed, windSpeedT, commissioningData, loaded } = state.dashBoard;
-  const { timezone } = state.settings;
+  const { currentPage } = state.homePage;
+  const { timezone,timeZoneSet } = state.settings;
   return {
     windSpeed,
     windSpeedT,
     timezone,
     commissioningData,
-    loaded
+    loaded,
+    currentPage,
+    timeZoneSet
   };
 }
 

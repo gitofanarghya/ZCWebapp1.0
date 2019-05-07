@@ -3,7 +3,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { dashBoardConstants } from '../_constants';
 import { dashBoardService } from '../_services';
 
-
 export const dashBoardActions = {
     getCommissioningData,
     getCurrentTrackerInfo,
@@ -28,7 +27,7 @@ function getCommissioningData() {
                     newCommissioning.staticData = commissioning.staticData.map(c => {
                         return {
                             ...c,
-                            color: 'blue'
+                            color: 'red'
                         }
                     });
                     dispatch(success(newCommissioning, dispatch));
