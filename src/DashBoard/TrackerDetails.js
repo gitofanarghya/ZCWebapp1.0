@@ -6,13 +6,13 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import {connect} from 'react-redux';
+import classNames from 'classnames';
+import Typography from '@material-ui/core/Typography';
+import { callbackify } from 'util';
 
 const styles = theme => ({
   root: {
-    width: '100%',
     overflowX: 'auto',
-    ...theme.mixins.gutters(),
-    height: '100%',
   },
   heading: {
     marginTop: '10px',
@@ -24,14 +24,14 @@ const styles = theme => ({
   outerRow: {
     borderRight: '1px solid #e0e0e0',
   },
-  table: {
+/*   table: {
     width: '80%',
     margin: 'auto',
     textAlign: 'left',
     borderRadius: '2%',
     maxHeight: 'calc(100% - 37px)',
     overflow: 'auto'
-  },
+  }, */
   cell: {
     textAlign: 'left',
     [theme.breakpoints.down('md')]: {
@@ -48,14 +48,29 @@ const styles = theme => ({
     margin: '0 !important'
 
   },
-  tableRow: {
+  angleText: {
+    width: '100%',
+    textAlign: 'center'
+  },
+/*   tableRow: {
     [theme.breakpoints.up('600')]: {
       height: '5vh',
     },
     [theme.breakpoints.down('600')]: {
       height: 3,
     },
-  }
+  }, */
+  table: {
+    overflow: 'auto',
+    //height: '80%',
+    //marginTop: 'auto',
+  },
+  tableRow: {
+    [theme.breakpoints.down('600')]: {
+      height: '20px'
+    },
+    height: '10px'
+  },
 });
 
 class TrackerDetails extends React.Component {
@@ -75,7 +90,7 @@ class TrackerDetails extends React.Component {
   
   return (
     <div className={classes.root}>
-        <Table className={classes.table}>
+{/*         <Table className={classes.table}>
             <TableBody>
                       <TableRow className={classes.tableRow}>
                       <TableCell className={classes.cell} padding="dense" style={{ height: 'auto !important' }}><b>
@@ -113,7 +128,83 @@ class TrackerDetails extends React.Component {
                       </TableCell>
                       </TableRow>
             </TableBody>
-        </Table>  
+        </Table>   */}
+
+            <Table className={classes.table}>
+                <TableBody>
+                      <TableRow
+                        className={classNames(classes.row, classes.tableRow)}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1">
+                              Tracker ID
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.trackerID?data.trackerID: '--'}</TableCell>
+                      </TableRow>
+
+                      <TableRow
+                        className={classNames(classes.row, classes.tableRow)}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1">
+                              Device ID
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.deviceID?data.devicerID: '--'} </TableCell>
+                      </TableRow>
+
+                      <TableRow
+                        className={classNames(classes.row, classes.tableRow)}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1">
+                              Mac ID 
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.macID?data.trackerID: '--'} </TableCell>
+                      </TableRow>
+
+                      <TableRow
+                        className={classNames(classes.row, classes.tableRow)}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1">
+                              Current Mode
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.currentMode?data.currentMode: '--'}</TableCell>
+                      </TableRow>
+
+                      <TableRow
+                        className={classNames(classes.row, classes.tableRow)}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1">
+                                  Current Angle
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.currentAngle? parseFloat(data.currentAngle).toFixed(2): '--'}  deg</TableCell>
+                      </TableRow>
+
+                      <TableRow
+                        className={classNames(classes.row, classes.tableRow)}
+                        style={{cursor: 'pointer', padding: '5px'}}
+                      >
+                          <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
+                              <Typography variant="body1">
+                                  Date and Time
+                              </Typography>
+                          </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{new Date(Number(data.timeStamp) * 1000).toLocaleDateString('en-US', {timeZone: this.state.timezone})} -- {new Date(Number(data.timeStamp) * 1000).toLocaleTimeString('en-US', {timeZone:  this.state.timezone, hour12: false})}</TableCell>
+                      </TableRow>
+                </TableBody>
+            </Table>
     </div>
   );
 }

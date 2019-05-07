@@ -92,9 +92,9 @@ const styles = theme => ({
     padding: '8px',
   },
   button:{
-    backgroundColor: '#54AAB3',
     color: 'white',
     marginBottom: '20px',
+ 
   }
 });
 
@@ -224,7 +224,7 @@ class Commissioning extends Component {
                       </form>
                   </div>
                   <div>
-                  <Button onClick={() => this.handleSubmit()}  variant="outlined" component="span" className={classes.button}>
+                  <Button onClick={() => this.handleSubmit()}  variant="contained" component="span" color="primary" className={classes.button}>
                               CONNECT
                   </Button>
                   </div>
@@ -273,7 +273,7 @@ class Commissioning extends Component {
                           </label>
                       </form></div> 
                       <div>
-                      <Button onClick={this.handleUpload} variant="outlined" component="span" className={classes.button}>
+                      <Button onClick={this.handleUpload} variant="contained" component="span" color="primary" className={classes.button}>
                           Upload
                       </Button>
                       </div>
@@ -421,7 +421,7 @@ class Commissioning extends Component {
                       </form>
                   </div>
                   <div>
-                  <Button onClick={this.selectS} variant="outlined" component="span" className={classes.button}>
+                  <Button onClick={this.selectS} variant="contained" component="span" color="primary" className={classes.button}>
                               Submit
                   </Button>
                   </div>
@@ -466,7 +466,7 @@ class Commissioning extends Component {
                     </form>
                 </div>
                 <div>
-                <Button onClick={this.handleUploadKey} variant="outlined" component="span" className={classes.button}>
+                <Button onClick={this.handleUploadKey} variant="contained" color="primary" component="span" className={classes.button}>
                             Upload
                 </Button>
                 </div>

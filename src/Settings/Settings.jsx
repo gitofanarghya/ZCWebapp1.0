@@ -163,39 +163,8 @@ class Settings extends Component {
         
         return (
             <div className={classes.root}>
+                            {this.props.thresholdOK && this.props.heartBeatOK &&
               <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
-                <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
-                  <Paper className={classes.paper}>
-                    <div>
-                      <Typography variant="h5" component="h3" className={classes.header}>
-                          Set XBEE config
-                      </Typography>
-                      <br />
-                      
-                      <form onSubmit={this.handleSubmit } >
-                              <TextField
-                                  name="panID"
-                                  label="PAN ID"
-                                  placeholder="Enter the PAN ID"
-                                  margin="none"
-                                  onChange={this.handleChange}
-                                  variant="outlined"
-                                  className={classes.field}
-                                  defaultValue={this.props.panid1.panID}
-                              />
-                              <br />
-                              <br />
-                      </form>
-                    </div>
-                    
-                    <div>
-                      <Button type="submit" className={classes.button} onClick={this.handleClick} variant="outlined">
-                          Submit
-                      </Button>
-                    </div>
-                  </Paper>
-                </Grid>
-
                 <Grid item md={6}  xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
                   <div>
@@ -302,7 +271,7 @@ class Settings extends Component {
                     <br /><br />
                     </div>
                     <div>
-                      <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="outlined">
+                      <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="contained" color="primary" >
                           Submit
                       </Button>
                     </div>
@@ -379,7 +348,7 @@ class Settings extends Component {
                   </form>
                 </div>
                 <div>
-                  <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="outlined">
+                  <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="contained" color="primary" >
                               Submit
                   </Button>
                 </div>
@@ -424,7 +393,7 @@ class Settings extends Component {
                   </form>
                 </div>
                 <div>
-                  <Button className={classes.button} onClick={this.handleTimeZone} variant="outlined">
+                  <Button className={classes.button} onClick={this.handleTimeZone} variant="contained" color="primary" >
                               Submit
                   </Button>
                 </div>
@@ -435,7 +404,7 @@ class Settings extends Component {
                 <Paper className={classes.paper}>
                 <div>
                   <Typography variant="h5" component="h3" className={classes.header}>
-                    Select Frequency(s)
+                    Request Frequency
                   </Typography>
 
                   <br />
@@ -443,36 +412,75 @@ class Settings extends Component {
                   <form onSubmit={this.handleSubmit} >
                         <TextField
                             name="powerRequestTimePeriod"
-                            label="Power Request Time Interval"
-                            placeholder="Power Request Time Interval"
+                            label="Power"
+                            placeholder="Power"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
                             defaultValue={this.props.powerRequestTimePeriod1}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
+                            }}
                         />
                         <br />
                         <TextField
                             name="statusRequestTimePeriod"
-                            label="Status Request Time Interval"
-                            placeholder="Status Request Time Interval"
+                            label="Status"
+                            placeholder="Status"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
                             className={classes.field}
                             defaultValue={this.props.statusRequestTimePeriod1}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
+                            }}
                         />
                         <br /><br />
                   </form>
                 </div>
                 <div>
-                  <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="outlined">
+                  <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="contained" color="primary" >
                       Submit
                   </Button>
                 </div>
                 </Paper>
               </Grid>
+
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
+                  <Paper className={classes.paper}>
+                    <div>
+                      <Typography variant="h5" component="h3" className={classes.header}>
+                          Set XBEE config
+                      </Typography>
+                      <br />
+                      
+                      <form onSubmit={this.handleSubmit } >
+                              <TextField
+                                  name="panID"
+                                  label="PAN ID"
+                                  placeholder="Enter the PAN ID"
+                                  margin="none"
+                                  onChange={this.handleChange}
+                                  variant="outlined"
+                                  className={classes.field}
+                                  defaultValue={this.props.panid1.panID}
+                              />
+                              <br />
+                              <br />
+                      </form>
+                    </div>
+                    
+                    <div>
+                      <Button type="submit" className={classes.button} onClick={this.handleClick} variant="contained" color="primary" >
+                          Submit
+                      </Button>
+                    </div>
+                  </Paper>
+                </Grid>
             </Grid>
+                            }
       </div>
         );
     }

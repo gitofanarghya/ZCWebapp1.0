@@ -20,7 +20,6 @@ const styles = theme => ({
     
   },
   heading: {
-    paddingLeft: '24px',
     display: 'flex',
     marginBottom: '10px'
   },
@@ -74,7 +73,10 @@ const styles = theme => ({
 
   },
   selected: {
-    backgroundColor: 'lightgrey'
+    backgroundColor: '#54AAB3',
+    "&:hover": {
+      backgroundColor: "#3a767d !important"
+    }
   },
   yellow:{
     marginLeft: 'auto',
@@ -89,7 +91,6 @@ const styles = theme => ({
     bottom: 20,
     right: 20,
     height: 'fit-content',
-    backgroundColor: '#54AAB3',
     color: 'white',
   }
 });
@@ -133,18 +134,18 @@ class DeviceList extends Component {
                         style={{cursor: 'pointer', padding: '5px'}}
                       >
                           <TableCell component="th" scope="row" padding="none" style={{ padding: '5px', height: 'auto !important'}}>
-                              <Typography variant="body1">
+                              <Typography variant="body1" style={ n.trackerID === selectedTrackerID ? {color: 'white'}: null}>
                                   {n.trackerID}
                               </Typography>
                           </TableCell>
-                          <TableCell style={{ padding: '5px', height: 'auto !important'}}>{n.color === "red" ? <div style={{color: 'red'}}> Not Reachable </div> : <div style={{color: 'green'}}>Reachable</div>}</TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important',fontSize: '14px'}}>{n.color === "red" ? (n.trackerID === selectedTrackerID ? <div style={{color: 'white' }}> Not Reachable </div>: <div style={{color: '#981e15' }}> Not Reachable </div>): (n.trackerID === selectedTrackerID ? <div style={{color: 'white' }}> Reachable </div>: <div style={{color: 'green' }}> Reachable </div>)}</TableCell>
                       </TableRow>
                       );
                   })}
                 </TableBody>
             </Table>
             </LoadingOverlay>
-            <Button variant="contained" className={classes.trigger} onClick={this.trigger}>
+            <Button variant="contained" color="primary" className={classes.trigger} onClick={this.trigger}>
                           Trigger Discovery
             </Button>
         </Paper>

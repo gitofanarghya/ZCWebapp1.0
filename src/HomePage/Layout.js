@@ -50,6 +50,7 @@ const styles = theme => ({
     [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
+    color: 'white'
   },
   toolbar: {
     [theme.breakpoints.down('sm')]: {
@@ -69,9 +70,7 @@ const styles = theme => ({
       flexGrow: 1,
       backgroundColor: 'lightgrey',
       height: '100%',
-      [theme.breakpoints.down(600)]: {
-        height: 'fit-content',
-      },
+
       width: '100%'
     },
   selected: {
@@ -256,7 +255,7 @@ class ResponsiveDrawer extends React.Component {
         <AppBar className={classes.appBar} >
           <Toolbar style={{overflow:"auto"}} className={classes.tool}>
             <IconButton
-              color="inherit"
+              color="white"
               aria-label="Open drawer"
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}

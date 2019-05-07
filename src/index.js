@@ -9,12 +9,9 @@ import 'typeface-roboto'
 
 const theme = createMuiTheme({
     palette: {
-      type: 'light',
       primary: {
-        main: "#54AAB3"
-      },
-      secondary: {
-        main: "#485362",
+        main: "#54AAB3",
+        contrastText: '#fff'
       }
     }
   });
