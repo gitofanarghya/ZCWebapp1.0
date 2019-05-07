@@ -302,8 +302,10 @@ class ResponsiveDrawer extends React.Component {
 
                       <Grid key={0} item >
                        <Paper className={classes.paper} >
+                       {this.props.timeZoneSet === true &&
                          <center><div className={classes.keyy}><b>Time</b></div> <div className={classes.val}> <Clock format={'HH:mm:ss'} ticking={true} timezone={this.props.timezone.utc[0]} /> &nbsp; {this.props.timezone.abbr}</div></center>
-                       </Paper>
+                       }
+                         </Paper>
                      </Grid>
 
                     </Grid>
@@ -359,13 +361,14 @@ ResponsiveDrawer.propTypes = {
 
 const mapStateToProps = (state) => {
   const { windSpeed, windSpeedT, commissioningData, loaded } = state.dashBoard;
-  const { timezone } = state.settings;
+  const { timezone,timeZoneSet } = state.settings;
   return {
     windSpeed,
     windSpeedT,
     timezone,
     commissioningData,
-    loaded
+    loaded,
+    timeZoneSet
   };
 }
 
