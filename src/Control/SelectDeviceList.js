@@ -81,6 +81,13 @@ const styles = theme => ({
         marginBottom: '10px'
       },
       zonePaper: {
+        margin:'10px',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        paddingTop: '16px',
+        paddingBottom: '16px',
+      },
+      zonePaper1: {
         width: '100%', 
         [theme.breakpoints.up(600)]: {
             marginTop: '10px',
@@ -287,7 +294,7 @@ class CheckboxListSecondary extends Component {
         return (
             <div className={classes.root} >
                 <Grid container  className={classNames("flex", classes.root1)} alignItems="stretch" direction="row" >
-                    <Grid item xs={12} md={6} className={classNames("flex", classes.detail)}>
+                    <Grid item xs={12} sm={6} className={classNames("flex", classes.detail)}>
                         <Paper className={classes.zonePaper}>
                         <div style={{position: 'relative'}}>
                         <Typography className={classes.heading} variant="headline" component="h3">
@@ -296,7 +303,7 @@ class CheckboxListSecondary extends Component {
 
                   <Switch checked={this.state.disable} className={classes.switchRoot} onChange={this.handleChange1} color="primary" aria-label="LoginSwitch" />
                         </div>
-                            <Grid  container  style={{ marginTop: "10%"}}>      
+                            <Grid  container  style={{ marginTop: "15%"}}>      
                                 <Grid item  xs={6} className={classes.grid}>
                                 <Button variant="contained" color="primary" disabled={!this.state.disable} className={classes.button} onClick={() => this.handleChange('WE', '00000')}>
                                   RUN WEST
@@ -368,7 +375,7 @@ class CheckboxListSecondary extends Component {
                     <br /> 
                     
                     <Grid item xs={12} sm={6} className={classNames("flex", classes.detail)}>
-                        <Paper className={classes.zonePaper}>
+                        <Paper className={classes.zonePaper1}>
                         <div style={{position:'relative'}}>
                         <Typography className={classes.heading} variant="headline" component="h3">
                                                                                  <p className={classes.para}>Tracker Control</p>
@@ -403,7 +410,7 @@ class CheckboxListSecondary extends Component {
                       }
 
                     </TextField></div>
-                            <Grid  container justify="flex-start" direction="row" style={{ marginTop: "10%"}}>      
+                            <Grid  container justify="flex-start" direction="row" style={{ marginTop: "15%"}}>      
                                 <Grid item  xs={6} className={classes.grid}>
                                 <Button variant="contained" color="primary" disabled={this.state.tracker === '' ? true: false} className={classes.button} onClick={(e) => this.handleChange2(e,'WE', trackers.filter(t => t.trackerID === this.state.tracker)[0].deviceID, trackers.filter(t => t.trackerID === this.state.tracker)[0].macID)}>
                       RUN WEST
