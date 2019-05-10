@@ -190,7 +190,7 @@ class Commissioning extends Component {
                 <Paper className={classes.paper}>
                   <div> 
                       <Typography variant="h5" component="h3" className={classes.header}>
-                          WiFi Settings
+                          WiFi
                       </Typography>
                     
                       <br />
@@ -235,7 +235,7 @@ class Commissioning extends Component {
                 <Paper className={classes.paper}>
                          <div>  
                       <Typography variant="h5" component="h3" className={classes.header}>
-                            Upload Zone Tracker Info
+                            Zone Tracker Info
                       </Typography>
                       
                       <br />   
@@ -284,7 +284,7 @@ class Commissioning extends Component {
                 <Paper className={classes.paper}>
                   <div>
                       <Typography variant="h5" component="h3" className={classes.header}>
-                        Sensor Settings
+                        Sensors
                       </Typography>
                                                 
                       <form autoComplete="off">

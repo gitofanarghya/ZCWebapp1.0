@@ -17,7 +17,82 @@ const initialState = {
   discoveryDetails: null,
   windSpeed: 0.0,
   windSpeedT: 0.0,
-  logs: [],
+  logs: [
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    {
+      "log": "Rover tracker001 online"
+    },
+    {
+      "log": "Rover tracker002 offline"
+    },
+    
+  
+  ],
   xbeelogs: [],
 }
 

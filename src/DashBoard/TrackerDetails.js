@@ -165,7 +165,7 @@ class TrackerDetails extends React.Component {
                               Mac ID 
                               </Typography>
                           </TableCell>
-                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.macID?data.trackerID: '--'} </TableCell>
+                          <TableCell style={{ padding: '5px', height: 'auto !important', fontSize: '14px'}}>{data.macID?data.macID: '--'} </TableCell>
                       </TableRow>
 
                       <TableRow

@@ -49,7 +49,9 @@ function upload(file) {
             .then(
                 ok => { 
                     dispatch(success(ok.toString()));
-		    dashBoardActions.getCommissioningData();
+                    dashBoardActions.getCommissioningData();
+                    var commissioningObject = { done: true };
+                    localStorage.setItem('commissioning', JSON.stringify(commissioningObject));
                     toast('successfully uploaded!', {
                         position: "bottom-right"
                       });
