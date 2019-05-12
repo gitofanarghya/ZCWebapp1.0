@@ -24,17 +24,19 @@ const styles = theme => ({
     overflow: 'auto',
   },
   header: {
-    padding: '10px',
+    textAlign: 'center'
   },
   paper: {
-      width: '100%',
-      verticalAlign: 'middle',
+      //width: '100%',
+      /* verticalAlign: 'middle',
       position: 'relative',
-      textAlign: 'center',
-      height: '100%',
-      display: 'flex',
+      textAlign: 'center', */
+      [theme.breakpoints.up('lg')]: {
+        height: '100%',
+      },
+      /* display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: 'space-between', */
   },
   menu: {
    width: '75%',
@@ -44,17 +46,41 @@ const styles = theme => ({
       overflowY: 'scroll'
   },
   grid: {
-    minHeight: '412px',
-    padding: '6px',
-    flexGrow: 1,
+    //minHeight: '412px',
+    //flexGrow: 1,
+    [theme.breakpoints.down('md')]: {
+      padding: '5px'
+    },
+    paddingTop: '5px',
+    paddingLeft: '5px',
   },
   button:{
     backgroundColor: '#54AAB3',
     color: 'white',
     marginBottom: '20px',
+    marginTop: '10px',
+    [theme.breakpoints.down('xs')]: {
+      width: '80%',
+    },
+      width: '45%',
   },
   field: {
-    width: '80%',
+    width: '80%'
+  },
+  fieldset: {
+    width: '45%',
+    minWidth: '150px',
+    maxWidth: '300px',
+    marginLeft: '2%',
+    marginRight: '2%',
+    [theme.breakpoints.down('xs')]: {
+      width: '80%',
+    },
+  },
+  form: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   }
 });
 
@@ -180,23 +206,22 @@ class Settings extends Component {
         
         return (
             <div className={classes.root}>
-              <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
-                <Grid item md={6}  xs={12}  className={classes.grid}>
+              <Grid direcion="column" container justify="flex-start" style={{height: '100%'}} >
+                <Grid item md={6} xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
-                  <div>
-                    <Typography variant="h6" component="h3" className={classes.header}>
+                    <Typography variant="h6" className={classes.header}>
                         Threshold
                     </Typography>
-                    <Grid container>
-                      <Grid item xs={6}> 
+                    <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleThreshold}>
                           <TextField
                               name="maxWindSpeed"
                               label="Maximum Wind Speed"
+                              placeholder="Maximum Wind Speed"
                               onChange={this.handleChange}
                               margin="normal"
                               value={this.state.maxWindSpeed}
                               variant="outlined"
-                              className={classes.field}
+                              className={classes.fieldset}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
@@ -206,39 +231,40 @@ class Settings extends Component {
                           <TextField
                               name="meanWindSpeed"
                               label="Mean Wind Speed"
+                              placeholder="Mean Wind Speed"
                               onChange={this.handleChange}
                               margin="normal"
                               variant="outlined"
-                              className={classes.field}
+                              className={classes.fieldset}
                               value={this.state.meanWindSpeed}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
-                              InputLabelProps={{ shrink: true}}
+                              InputLabelProps={{ shrink: true }}
                           />
                           <TextField
                               name="windSpeedTimer"
                               label="Wind Speed Timer"
+                              placeholder="Wind Speed Timer"
                               onChange={this.handleChange}
                               margin="normal"
                               variant="outlined"
-                              className={classes.field}
+                              className={classes.fieldset}
                               value={this.state.windSpeedTimer}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">s</InputAdornment>,
                               }}
                               InputLabelProps={{ shrink: true }}
                           />
-                      </Grid>
 
-                      <Grid item xs={6}>
                         <TextField
                             name="maxRainFall"
                             label="Maximum Rain Fall"
+                            placeholder="Maximum Rain Fall"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.field}
+                            className={classes.fieldset}
                             value={this.state.maxRainFall}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">mm</InputAdornment>,
@@ -249,10 +275,11 @@ class Settings extends Component {
                         <TextField
                             name="maxFloodLevel"
                             label="Maximum Flood Level"
+                            placeholder="Maximum Flood Level"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.field}
+                            className={classes.fieldset}
                             value={this.state.maxFloodLevel}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
@@ -262,10 +289,11 @@ class Settings extends Component {
                         <TextField
                             name="maxSnowFall"
                             label="Maximum Snow Fall"
+                            placeholder="Maximum Snow Fall"
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.field}
+                            className={classes.fieldset}
                             value={this.state.maxSnowFall}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
@@ -273,25 +301,21 @@ class Settings extends Component {
                             InputLabelProps={{ shrink: true }}
                         />
 
-                      </Grid>
-                      
-                    </Grid>
-                    </div>
-                    <div>
-                      <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="contained" color="primary" >
+                      <Button type="submit" className={classes.button} variant="contained" color="primary" >
                           Submit
                       </Button>
-                    </div>
+                    </form>
                   </Paper>
               </Grid>
 
               <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
-                <div>
-                  <Typography variant="h6" component="h3" className={classes.header}>
-                      Heart Beat
+                
+                  <Typography variant="h6" className={classes.header}>
+                      Heart Beat Settings
                   </Typography>
-                    
+                                 
+                  <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit} >
 
                     <TextField
                         id="enabled-simple"
@@ -303,7 +327,7 @@ class Settings extends Component {
                         className={classes.field}
                         SelectProps={{
                           MenuProps: {
-                            className: classes.field,
+                            //className: classes.field,
                           },
                         }}
                         margin="normal"
@@ -320,6 +344,7 @@ class Settings extends Component {
                     <TextField
                         name="hbinterval"
                         label="Heart Beat Interval"
+                        placeholder="Heart Beat Interval"
                         onChange={this.handleChange}
                         margin="normal"
                         variant="outlined"
@@ -336,40 +361,84 @@ class Settings extends Component {
                     <TextField
                         name="maxMsgs"
                         label="Max msgs before stow"
+                        placeholder="Max msgs before stow"
                         onChange={this.handleChange}
                         margin="normal"
                         variant="outlined"
                         className={classes.field}
                         disabled={this.state.enabled === "disabled"}
                         value={this.state.maxMsgs}
-                        InputLabelProps={{ shrink: true}}
+                        InputProps={{
+                          endAdornment: <InputAdornment position="end">msgs</InputAdornment>,
+                        }}
+                        InputLabelProps={{ shrink: true }}
                     />
 
-
-                </div>
-                <div>
-                  <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="contained" color="primary" >
+                  <Button type="submit" className={classes.button} variant="contained" color="primary" >
                               Submit
                   </Button>
-                </div>
+                </form>
+                </Paper>
+              </Grid>
+
+              
+
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
+                <Paper className={classes.paper}>
+                  <Typography variant="h6" className={classes.header}>
+                    Request Frequency
+                  </Typography>
+
+                  <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit} >
+                        <TextField
+                            name="powerRequestTimePeriod"
+                            label="Power"
+                            placeholder="Power"
+                            onChange={this.handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.field}
+                            value={this.state.powerRequestTimePeriod}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
+                            }}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                        <TextField
+                            name="statusRequestTimePeriod"
+                            label="Status"
+                            placeholder="Status"
+                            onChange={this.handleChange}
+                            margin="normal"
+                            variant="outlined"
+                            className={classes.field}
+                            value={this.state.statusRequestTimePeriod}
+                            InputProps={{
+                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
+                            }}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                  <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="contained" color="primary" >
+                      Submit
+                  </Button>
+                  </form>
                 </Paper>
               </Grid>
 
               <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
-                <div>
-                  <Typography variant="h6" component="h3" className={classes.header}>
-                      Time Zone
+                  <Typography variant="h6" className={classes.header}>
+                      Select Time Zone
                   </Typography>
-                
                     
+                  <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                     <TextField
                       id="timeZone-simple"
                       select
                       label="Select Time Zone"
                       value={this.state.timeZone}
                       name="timeZone"
-                      className={classes.menu}
+                      className={classes.field}
                       onChange={this.handleChange}
                       SelectProps={{
                         MenuProps: {
@@ -387,66 +456,26 @@ class Settings extends Component {
                         <MenuItem value="America/Denver">- &nbsp; America/Denver</MenuItem>
                         <MenuItem value="Australia/Darwin">- &nbsp; Australia/Darwin</MenuItem> */}
                     </TextField>
-               </div>
-                <div>
-                  <Button className={classes.button} onClick={this.handleTimeZone} variant="contained" color="primary" >
+            
+                  
+                  <Button className={classes.button} type='submit' variant="contained" color="primary" >
                               Submit
                   </Button>
-                </div>
-                </Paper>
-              </Grid>
-
-              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
-                <Paper className={classes.paper}>
-                <div>
-                  <Typography variant="h6" component="h3" className={classes.header}>
-                    Request Frequency
-                  </Typography>
-
-                          <TextField
-                            name="powerRequestTimePeriod"
-                            label="Power"
-                            onChange={this.handleChange}
-                            margin="normal"
-                            variant="outlined"
-                            className={classes.field}
-                            value={this.state.powerRequestTimePeriod}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
-                            }}
-                            InputLabelProps={{ shrink: true }}
-                        />
-                        <TextField
-                            name="statusRequestTimePeriod"
-                            label="Status"
-                            onChange={this.handleChange}
-                            margin="normal"
-                            variant="outlined"
-                            className={classes.field}
-                            value={this.state.statusRequestTimePeriod}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">s</InputAdornment>,
-                            }}
-                            InputLabelProps={{ shrink: true }}
-                        />
-                </div>
-                <div>
-                  <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="contained" color="primary" >
-                      Submit
-                  </Button>
-                </div>
+                  </form>
                 </Paper>
               </Grid>
 
               <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                   <Paper className={classes.paper}>
-                    <div>
-                      <Typography variant="h6" component="h3" className={classes.header}>
-                        XBEE config
-                      </Typography>                      
+                      <Typography variant="h6" className={classes.header}>
+                          Set XBEE config
+                      </Typography>
+                      
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit } >
                               <TextField
                                   name="panID"
                                   label="PAN ID"
+                                  placeholder="Enter the PAN ID"
                                   margin="normal"
                                   onChange={this.handleChange}
                                   variant="outlined"
@@ -454,13 +483,12 @@ class Settings extends Component {
                                   value={this.state.panID.panID}
                                   InputLabelProps={{ shrink: true }}
                               />
-                    </div>
-                    
-                    <div>
-                      <Button type="submit" className={classes.button} onClick={this.handleClick} variant="contained" color="primary" >
+                             
+                  
+                      <Button type="submit" className={classes.button} variant="contained" color="primary" >
                           Submit
                       </Button>
-                    </div>
+                      </form>
                   </Paper>
                 </Grid>
             </Grid>

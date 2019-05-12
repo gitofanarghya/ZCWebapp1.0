@@ -8,13 +8,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { commissioningActions } from '../_actions'
 import { Typography } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import ReactDOM from 'react-dom';
 import Divider from '@material-ui/core/Divider';
+import {CenterFocusWeak} from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   root: {
@@ -24,20 +21,23 @@ const styles = theme => ({
     height: 'calc(100% - 64px)',
     width: '100%',
     overflow: 'auto',
-  }, 
+  },
   header: {
-    padding: '10px',
+    textAlign: 'center'
   },
   paper: {
-      width: '100%',
-      verticalAlign: 'middle',
-      position: 'relative',
-      textAlign: 'center',
-      height: '500px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-  },
+    //width: '100%',
+    /* verticalAlign: 'middle',
+    position: 'relative',
+    textAlign: 'center', */
+    [theme.breakpoints.up('lg')]: {
+      height: '100%',
+    },
+    padding: '10px'
+    /* display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between', */
+},
   paper1: {
       padding: '5%',
       verticalAlign: 'middle',
@@ -62,13 +62,14 @@ const styles = theme => ({
   },
   inputButton:{
       marginTop: '20%',
+      marginLeft: '20%',
       maxWidth: '40%'
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    textAlign: 'center',
-    margin:'auto',
+    width: '80%'
+  },
+  textField2: {
+    width: 'calc(100% - 34px)'
   },
   textField1: {
     width: '30%',
@@ -87,14 +88,43 @@ const styles = theme => ({
     color: 'grey',
     textAlign: 'left'
     },
-  grid: {
-    height: '516px',
-    padding: '8px',
+    grid: {
+      //flexGrow: 1,
+      [theme.breakpoints.down('md')]: {
+        padding: '5px'
+      },
+      paddingTop: '5px',
+      paddingLeft: '5px',
+    },
+    button:{
+      backgroundColor: '#54AAB3',
+      color: 'white',
+      marginBottom: '20px',
+      marginTop: '10px',
+      [theme.breakpoints.down('xs')]: {
+        width: '80%',
+      },
+        width: '45%',
+    },
+  form: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   },
-  button:{
+  fileInput: {
+    margin: '5%'
+  },
+  dropButton: {
+    minWidth: '32px !important',
+    width: '32px',
+    marginLeft: '2px',
+    marginTop: '16px',
+    marginBottom: '8px',
     color: 'white',
-    marginBottom: '20px',
- 
+    height: '55px',
+  },
+  sensorsDiv: {
+    width: '80%',
   }
 });
 
@@ -113,12 +143,35 @@ class Commissioning extends Component {
         rainSensor: '',
         snowSensor: '',
         labelWidth: 0,
-        windAddress: ''
+        windAddress: '',
+        anchorEl: null,
+        anchorEl1: null,
+        anchorEl3: null,
+        anchorEl2: null,
     };
 
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  }
+
+  handleClick3 = (sensor) => {
+    if(sensor === 'wind')
+    {
+      this.props.caliberate(this.state.windSensor);
+    }
+    else if(sensor === 'rain')
+    {
+      this.props.caliberate(this.state.rainSensor);
+    }
+    else if(sensor === 'flood')
+    {
+      this.props.caliberate(this.state.floodSensor);
+    }
+    else if(sensor === 'snow')
+    {
+      this.props.caliberate(this.state.snowSensor);
+    }
   }
 
   handleSubmit = () => {
@@ -165,9 +218,6 @@ class Commissioning extends Component {
     this.props.selectSensor(this.state.windSensor, this.state.rainSensor, this.state.floodSensor, this.state.snowSensor, this.state.windAddress);
   }
   componentDidMount() {
-    this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    });
     this.props.getSensors();
     this.props.getWindAddress()
   }
@@ -182,20 +232,21 @@ class Commissioning extends Component {
 
     render(){
         const { classes } = this.props;
-        
+        const { anchorEl, anchorEl1, anchorEl2, anchorEl3 } = this.state;
+        const open = Boolean(anchorEl);
+        const open1 = Boolean(anchorEl1);
+        const open2 = Boolean(anchorEl2);
+        const open3 = Boolean(anchorEl3);
+
         return (
           <div className={classes.root} >
-            <Grid  container justify="flex-start" direction="row" style={{height: '100%'}}>            
+            <Grid  direcion="column" container justify="flex-start" style={{height: '100%'}}>            
               <Grid item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
-                  <div> 
-                      <Typography variant="h5" component="h3" className={classes.header}>
+                      <Typography variant="h6" className={classes.header}>
                           WiFi
                       </Typography>
-                    
-                      <br />
-
-                      <form onSubmit={this.handleSubmit}>
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={() => this.handleSubmit()}>
                           <TextField
                               name="ssid"
                               id="outlined-name"
@@ -205,9 +256,8 @@ class Commissioning extends Component {
                               onChange={this.handleChange}
                               margin="normal"
                               variant="outlined"
+                              InputLabelProps={{ shrink: true }}
                           />
-                          <br />
-                          <br />
                           <TextField
                               name="password"
                               id="outlined-name"
@@ -218,29 +268,22 @@ class Commissioning extends Component {
                               margin="normal"
                               variant="outlined"
                               onChange={this.handleChange}
+                              InputLabelProps={{ shrink: true }}
                           />
-                          <br />
-                          <br />
+                      
+                          <Button variant="contained" color="primary" className={classes.button}>
+                                      CONNECT
+                          </Button>
                       </form>
-                  </div>
-                  <div>
-                  <Button onClick={() => this.handleSubmit()}  variant="contained" component="span" color="primary" className={classes.button}>
-                              CONNECT
-                  </Button>
-                  </div>
                 </Paper>
               </Grid>
 
               <Grid  item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
-                         <div>  
-                      <Typography variant="h5" component="h3" className={classes.header}>
+                      <Typography variant="h6" className={classes.header}>
                             Zone Tracker Info
-                      </Typography>
-                      
-                      <br />   
-                                
-                      <form style={{margin: 'auto', padding: '10px'}}>
+                      </Typography>                                
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleUpload}>
                           <input
                               accept="*.json"
                               className={classes.input}
@@ -264,180 +307,205 @@ class Commissioning extends Component {
                                 </Button>
                               </Grid>
                             </Grid>
-
-                            <br />
-
-                            <p style={{color: 'grey',fontSize: '13px',textAlign: 'left',marginTop: 0}}>
+                            <p style={{color: 'grey',fontSize: '13px',textAlign: 'left',marginTop: 5}}>
                                 Upload the JSON document that contains the static initialization data.
                             </p>
                           </label>
-                      </form></div> 
-                      <div>
-                      <Button onClick={this.handleUpload} variant="contained" component="span" color="primary" className={classes.button}>
+                      <Button variant="contained" margin="normal" color="primary" className={classes.button}>
                           Upload
                       </Button>
-                      </div>
+                      </form>
+
                 </Paper>
               </Grid>
 
               <Grid  item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
-                  <div>
-                      <Typography variant="h5" component="h3" className={classes.header}>
+                      <Typography variant="h6" className={classes.header}>
                         Sensors
                       </Typography>
                                                 
-                      <form autoComplete="off">
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel
-                              ref={ref => {
-                                this.InputLabelRef = ref;
-                              }}
-                              htmlFor="outlined-age-simple"
-                            >
-                              Select Wind Sensor
-                            </InputLabel>
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={this.selectS}>
 
-                            <Select
-                              value={this.state.windSensor}
-                              onChange={this.handleChange1}
-                              
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="windSensor"
-                                  id="outlined-age-simple"
-                                />
-                              }
-                            >
+                      <div className={classes.sensorsDiv}>
+                        <TextField
+                            select
+                            label="Wind Sensor"
+                            name="windSensor"
+                            id="outlined-age-simple"
+                            value={this.state.windSensor}
+                            onChange={this.handleChange1}
+                            className={classes.textField2}
+                            SelectProps={{
+                              MenuProps: {
+                                //className: classes.field,
+                              },
+                            }}
+                            margin="normal"
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                        >
                               <MenuItem value="WD385">WD385</MenuItem>
                               <MenuItem value="CXS01">CXS01</MenuItem>
                               <MenuItem value="NONE">NONE</MenuItem>
-                            </Select>
-                          </FormControl>   
-                          
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <TextField
+                
+                        </TextField>
+
+                        <Button variant="contained" color="primary" disabled={this.state.windSensor === '' || this.state.windSensor === 'NONE' ? true : false} className={classes.dropButton} onClick={() => this.handleClick3("wind")}>
+                          <IconButton
+                            aria-label="More"
+                            aria-owns={open ? 'long-menu' : undefined}
+                            aria-haspopup="true"
+                          >
+                            <CenterFocusWeak />
+
+                          </IconButton>
+                        </Button>
+                      </div>
+
+                     
+                           <TextField
                                 name="windAddress"
                                 id="outlined-name"
                                 label="Address"
                                 placeholder="Address"
+                                className={classes.textField}
                                 value={this.state.windAddress}
                                 style={{marginBottom: '5px'}}
                                 onChange={this.handleChange}
-                                margin="none"
+                                margin="normal"
                                 variant="outlined"
                                 disabled={this.state.windSensor === 'CXS01'? false:true}
                             />
-                          </FormControl>
 
                           <Divider />
 
-                          <FormControl variant="outlined" className={classes.formControl} style={{marginTop: '15px'}}>
-                            <InputLabel
-                              ref={ref => {
-                                this.InputLabelRef = ref;
-                              }}
-                              htmlFor="outlined-age-simple1"
-                            >
-                              Select Flood Sensor
-                            </InputLabel>
-
-                            <Select
-                              value={this.state.floodSensor}
-                              onChange={this.handleChange1}
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="floodSensor"
-                                  id="outlined-age-simple1"
-                                />
-                              }
-                              
-                            >
-                              <MenuItem value="MB7334">MB7334</MenuItem>
+                          <div className={classes.sensorsDiv}>
+                            <TextField
+                        select
+                        label="Flood Sensor"
+                        name="floodSensor"
+                        id="outlined-age-simple1"
+                        value={this.state.floodSensor}
+                        onChange={this.handleChange1}
+                        className={classes.textField2}
+                        SelectProps={{
+                          MenuProps: {
+                            //className: classes.field,
+                          },
+                        }}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{ shrink: true }}
+                    >
+            
+            <MenuItem value="MB7334">MB7334</MenuItem>
                               <MenuItem value="NONE">NONE</MenuItem>
+            
+                    </TextField>
 
-                            </Select>
-                          </FormControl>
+                    
+                    <Button variant="contained" color="primary" disabled={this.state.floodSensor === '' || this.state.floodSensor === 'NONE' ? true : false} className={classes.dropButton} onClick={() => this.handleClick3("flood")}>
+                          <IconButton
+                            aria-label="More"
+                            aria-owns={open ? 'long-menu' : undefined}
+                            aria-haspopup="true"
+                          >
+                            <CenterFocusWeak />
 
+                          </IconButton>
+                        </Button>
+                      </div>
 
+                      <div className={classes.sensorsDiv}>
 
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel
-                              ref={ref => {
-                                this.InputLabelRef = ref;
-                              }}
-                              htmlFor="outlined-age-simple2"
-                            >
-                              Select Rain Sensor
-                            </InputLabel>
-
-                            <Select
-                              value={this.state.rainSensor}
-                              onChange={this.handleChange1}
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="rainSensor"
-                                  id="outlined-age-simple2"
-                                />
-                              }
-                            >
-                              <MenuItem value="ARGENT">ARGENT</MenuItem>
+                            <TextField
+                        select
+                        label="Rain Sensor"
+                        name="rainSensor"
+                        id="outlined-age-simple2"
+                        value={this.state.rainSensor}
+                        onChange={this.handleChange1}
+                        className={classes.textField2}
+                        SelectProps={{
+                          MenuProps: {
+                            //className: classes.field,
+                          },
+                        }}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{ shrink: true }}
+                    >
+            
+            <MenuItem value="ARGENT">ARGENT</MenuItem>
                               <MenuItem value="NONE">NONE</MenuItem>
-                            </Select>
-                          </FormControl>
+            
+                    </TextField>
 
+                    
+                    <Button variant="contained" color="primary" disabled={this.state.rainSensor === '' || this.state.rainSensor === 'NONE' ? true : false} className={classes.dropButton} onClick={() => this.handleClick3("rain")}>
+                          <IconButton
+                            aria-label="More"
+                            aria-owns={open ? 'long-menu' : undefined}
+                            aria-haspopup="true"
+                          >
+                            <CenterFocusWeak />
 
+                          </IconButton>
+                        </Button>
+                      </div>
 
-                          <FormControl variant="outlined" className={classes.formControl}>
-                            <InputLabel
-                              ref={ref => {
-                                this.InputLabelRef = ref;
-                              }}
-                              htmlFor="outlined-age-simple3"
-                            >
-                              Select Snow Sensor
-                            </InputLabel>
-                            <Select
-                              value={this.state.snowSensor}
-                              onChange={this.handleChange1}
-                              input={
-                                <OutlinedInput
-                                  labelWidth={this.state.labelWidth}
-                                  name="snowSensor"
-                                  id="outlined-age-simple3"
-                                />
-                              }
-                            >
-                              <MenuItem value="WD385">MB7354</MenuItem>
+                      <div className={classes.sensorsDiv}>
+
+                            <TextField
+                        select
+                        label="Snow Sensor"
+                        name="snowSensor"
+                        id="outlined-age-simple3"
+                        value={this.state.snowSensor}
+                        onChange={this.handleChange1}
+                        className={classes.textField2}
+                        SelectProps={{
+                          MenuProps: {
+                            //className: classes.field,
+                          },
+                        }}
+                        margin="normal"
+                        variant="outlined"
+                        InputLabelProps={{ shrink: true }}
+                    >
+                              <MenuItem value="MB7354">MB7354</MenuItem>
                               <MenuItem value="NONE">NONE</MenuItem>
-                            </Select>
-                          </FormControl> 
+            
+                    </TextField>
 
-                          <br />      
-                          <br />
-                      </form>
-                  </div>
-                  <div>
-                  <Button onClick={this.selectS} variant="contained" component="span" color="primary" className={classes.button}>
+                    
+                    <Button variant="contained" color="primary" disabled={this.state.snowSensor === '' || this.state.snowSensor === 'NONE' ? true : false} className={classes.dropButton} onClick={() => this.handleClick3("snow")}>
+                          <IconButton
+                            aria-label="More"
+                            aria-owns={open ? 'long-menu' : undefined}
+                            aria-haspopup="true"
+                          >
+                            <CenterFocusWeak />
+
+                          </IconButton>
+                        </Button>
+                      </div>
+
+
+                  <Button variant="contained" color="primary" className={classes.button}>
                               Submit
                   </Button>
-                  </div>
+                  </form>
                 </Paper>
               </Grid>
 
               <Grid  item  md={3}  xs={12} sm={6} className={classes.grid}>
                 <Paper className={classes.paper}>
-                  <div>
-                    <Typography variant="h5" component="h3" className={classes.header}>
+                    <Typography variant="h6"className={classes.header}>
                          Big Query
-                    </Typography>
-
-                    <br />
-    
-                    <form style={{margin: 'auto', padding: '10px'}}>
+                    </Typography>    
+                    <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleUploadKey}>
                         <input
                           className={classes.input}
                           id="text-button-file1"
@@ -445,31 +513,27 @@ class Commissioning extends Component {
                           type="file"
                           onChange={this.handleselectedKey}
                         />
-
-                        <label htmlFor="text-button-file1">
-                            <Grid container>
+                          <label htmlFor="text-button-file" style={{width: '100%'}}>
+                            <Grid container style={{width: '80%'}}>
                               <Grid item xs={8} style={{position: 'relative'}} className="fileInput">
                                 {this.state.selectedKey === null && <p className={classes.underline}>Choose File</p>}
                                 {this.state.selectedKey && <p className={classes.underline}>{this.state.selectedKey['name']}</p>}
                               </Grid>
                               <Grid item xs={4}>
-                                <Button variant="contained" component="span" color="primary" className={classes.inputButton}>
+                                <Button variant="contained" color="primary" className={classes.inputButton}>
                                   BROWSE
                                 </Button>
                               </Grid>
                             </Grid>
-                            <br />
-                            <p style={{color: 'grey', fontSize: '13px', textAlign: 'left', marginTop: 0}}>
+                            <p style={{color: 'grey', fontSize: '13px', textAlign: 'left', marginTop: 5}}>
                                 Upload key.
                             </p>
-                        </label>
-                    </form>
-                </div>
-                <div>
-                <Button onClick={this.handleUploadKey} variant="contained" color="primary" component="span" className={classes.button}>
+                          </label>
+                    
+                <Button variant="contained" color="primary" className={classes.button}>
                             Upload
                 </Button>
-                </div>
+                </form>
               </Paper>
             </Grid>
         </Grid>
@@ -513,6 +577,9 @@ const mapDispatchToProps = (dispatch) => ({
     getWindAddress : () => {
       dispatch(commissioningActions.getWindAddress())
     },
+    caliberate: (sensor) => {
+      dispatch(commissioningActions.caliberate(sensor))
+    }
   })
 
 const connectedCommissioning = connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(Commissioning));
