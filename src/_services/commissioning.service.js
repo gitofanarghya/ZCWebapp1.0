@@ -5,7 +5,8 @@ export const commissioningService = {
     uploadKey,
     getSensors,
     setWindAddress,
-    getWindAddress
+    getWindAddress,
+    caliberate
 };
 
 const hostName = window.location.hostname+ ':5000';
@@ -105,6 +106,21 @@ function getSensors() {
     };
 
     return fetch(`http://${hostName}/get/sensors`, requestOptions)
+        .then(handleResponse)
+}
+
+function caliberate(sensor) {
+    const requestOptions = {
+        method: "POST",
+        mode: 'cors',
+        body: JSON.stringify({
+            "sensor": sensor,
+        })
+    };
+
+    console.log(sensor);
+
+    return fetch(`http://${hostName}/calibrateSensor`, requestOptions)
         .then(handleResponse)
 }
 

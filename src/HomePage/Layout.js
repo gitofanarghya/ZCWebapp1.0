@@ -165,7 +165,6 @@ class ResponsiveDrawer extends React.Component {
     this.props.setCurrentPage(currentPage);
     this.setState({mobileOpen: false});
     this.setState({current: currentPage});
-    console.log(this.state.current);
   }
 
   hostname = window.location.hostname +':1111';
@@ -197,51 +196,50 @@ class ResponsiveDrawer extends React.Component {
 
   render() {
     const { classes, theme, children } = this.props;
-    console.log(this.state.current);
     const drawer = (
       <div>
         <div className={classNames(classes.toolbar, "ftclogo")} />
         <Divider />
-        <ListItem button key={this.state.keyy} onClick={(e) => this.handleCloseDrawer(e,"Dashboard")} style={{backgroundColor: this.state.current === "Dashboard"? "#54AAB3": null}}>
+        <ListItem button key={this.state.keyy} onClick={(e) => this.handleCloseDrawer(e,"Dashboard")} style={{backgroundColor: this.props.currentPage === "Dashboard"? "#54AAB3": null}}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary={<Typography style={{color: this.state.current === "Dashboard"? "white": "black"}}>Dashboard</Typography>}/>
+          <ListItemText primary={<Typography style={{color: this.props.currentPage === "Dashboard"? "white": "black"}}>Dashboard</Typography>}/>
         </ListItem>
 
-        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Control")} style={{backgroundColor: this.state.current === "Control"? "#54AAB3": null}}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Control")} style={{backgroundColor: this.props.currentPage === "Control"? "#54AAB3": null}}>
           <ListItemIcon>
             <SendIcon />
           </ListItemIcon>
-          <ListItemText primary={<Typography style={{color: this.state.current === "Control"? "white": "black"}}>Tracker Control</Typography>}/>
+          <ListItemText primary={<Typography style={{color: this.props.currentPage === "Control"? "white": "black"}}>Tracker Control</Typography>}/>
         </ListItem>
 
-        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Commissioning")} style={{backgroundColor: this.state.current === "Commissioning"? "#54AAB3": null}}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Commissioning")} style={{backgroundColor: this.props.currentPage === "Commissioning"? "#54AAB3": null}}>
           <ListItemIcon>
             <NetworkWifiIcon />
           </ListItemIcon>
-          <ListItemText primary={<Typography style={{color: this.state.current === "Commissioning"? "white": "black"}}>Commissioning</Typography>} />
+          <ListItemText primary={<Typography style={{color: this.props.currentPage === "Commissioning"? "white": "black"}}>Commissioning</Typography>} />
         </ListItem>
 
-        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Settings")} style={{backgroundColor: this.state.current === "Settings"? "#54AAB3": null}}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Settings")} style={{backgroundColor: this.props.currentPage === "Settings"? "#54AAB3": null}}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={<Typography style={{color: this.state.current === "Settings"? "white": "black"}}>Settings</Typography>} />
+          <ListItemText primary={<Typography style={{color: this.props.currentPage === "Settings"? "white": "black"}}>Settings</Typography>} />
         </ListItem>
 
-        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Logs")} style={{backgroundColor: this.state.current === "Logs"? "#54AAB3": null}}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"Logs")} style={{backgroundColor: this.props.currentPage === "Logs"? "#54AAB3": null}}>
           <ListItemIcon>
             <ListIcon />
           </ListItemIcon>
-          <ListItemText primary={<Typography style={{color: this.state.current === "Logs"? "white": "black"}}>Logs</Typography>}/>
+          <ListItemText primary={<Typography style={{color: this.props.currentPage === "Logs"? "white": "black"}}>Logs</Typography>}/>
         </ListItem>
 
-        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"About")} style={{backgroundColor: this.state.current === "About"? "#54AAB3": null}}>
+        <ListItem button onClick={(e) => this.handleCloseDrawer(e,"About")} style={{backgroundColor: this.props.currentPage === "About"? "#54AAB3": null}}>
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
-          <ListItemText primary={<Typography style={{color: this.state.current === "About"? "white": "black"}}>About</Typography>}/>
+          <ListItemText primary={<Typography style={{color: this.props.currentPage === "About"? "white": "black"}}>About</Typography>}/>
         </ListItem>
 
         <Divider />

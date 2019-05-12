@@ -32,11 +32,12 @@ const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     borderRadius: '5px',
+    height: 'calc(100% - 64px)',
   },
   black: {
       backgroundColor: 'black',
       color: 'silver',
-      height: "80vh",
+      height: "calc(100% - 48px)",
       overflowY: 'scroll',
   },
   white: {
@@ -94,17 +95,17 @@ class Logs extends React.Component {
   }
 
     handleScroll = e => {
-    if(this.div.scrollHeight - this.div.scrollTop > this.div.clientHeight){
+    if(this.div.scrollHeight - this.div.scrollTop === this.div.clientHeight){
       console.log("bottom");
-      this.setState({showlogs: (this.state.logs.length - this.state.showlogs) > 10 ? (this.state.showlogs + 10) : (this.state.logs.length)});
+      this.setState({showlogs: (this.props.logs.length - this.state.showlogs) > 10 ? (this.state.showlogs + 10) : (this.props.logs.length)});
     }
   };
 
   render() {
 
     const { classes, theme } = this.props;
-    const len = this.state.logs.length > 10 ? this.state.showlogs : this.state.logs.length; 
-    const items = this.state.logs.slice(0, len).map(
+    const len = this.props.logs.length > 10 ? this.state.showlogs : this.props.logs.length; 
+    const items = this.props.logs.slice(0, len).reverse().map(
       (row) => 
       <TableRow  className={classes.rows}>
         <TableCell  className={classes.white}  align="left">{new Date(Number(Number(row.date) * 1000)).toLocaleDateString('en-US', {timeZone: this.state.timezone.utc[0]})}</TableCell>
@@ -142,7 +143,7 @@ class Logs extends React.Component {
             <SwipeableViews
               axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={this.state.value}
-              onChangeIndex={this.handleChangeIndex} 
+              onChangeIndex={this.handleChangeIndex}
               ref={this.refCallback} 
             >
 
@@ -185,7 +186,7 @@ class Logs extends React.Component {
                   </TableHead>
                   
                   <TableBody>
-                    {this.props.xbeelogs.slice(0).map(row1 => (
+                    {this.props.xbeelogs.slice(0).reverse().map(row1 => (
                       <TableRow className={classes.rows}>
                         <TableCell className={classes.white} align="left">{new Date(Number(JSON.parse(row1.log).TS) * 1000).toLocaleDateString('en-US', {timeZone: this.state.timezone.utc[0]})}</TableCell>
                         <TableCell className={classes.white} align="left">{new Date(Number(JSON.parse(row1.log).TS) * 1000).toLocaleTimeString('en-US', {timeZone: this.state.timezone.utc[0]})}</TableCell>

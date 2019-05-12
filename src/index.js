@@ -13,7 +13,14 @@ const theme = createMuiTheme({
         main: "#54AAB3",
         contrastText: '#fff'
       }
-    }
+    },
+    overrides: {
+      MuiIconButton: {
+          root: {
+            color: 'white'
+          },
+      }
+    } 
   });
 
 render(

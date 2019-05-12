@@ -1,8 +1,18 @@
 import { homePageConstants } from '../_constants';
 
-const initialState = {
-    currentPage: 'Commissioning'
-}
+let commissioning = JSON.parse(localStorage.getItem('commissioning'));
+const initialState = commissioning ? 
+                          (commissioning.done ? 
+                            {
+                            currentPage: 'Dashboard'
+                            }: 
+                            {
+                            currentPage: 'Commissioning'
+                            }
+                          ): 
+                          {
+                            currentPage: 'Commissioning'
+                          };
 
 export function homePage(state, action) {
   if (typeof state === 'undefined') {

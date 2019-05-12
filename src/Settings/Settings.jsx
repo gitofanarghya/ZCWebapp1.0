@@ -24,17 +24,19 @@ const styles = theme => ({
     overflow: 'auto',
   },
   header: {
-    padding: '10px',
+    textAlign: 'center'
   },
   paper: {
-      width: '100%',
-      verticalAlign: 'middle',
+      //width: '100%',
+      /* verticalAlign: 'middle',
       position: 'relative',
-      textAlign: 'center',
-      height: '400px',
-      display: 'flex',
+      textAlign: 'center', */
+      [theme.breakpoints.up('lg')]: {
+        height: '100%',
+      },
+      /* display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: 'space-between', */
   },
   menu: {
    width: '75%',
@@ -44,16 +46,41 @@ const styles = theme => ({
       overflowY: 'scroll'
   },
   grid: {
-    height: '412px',
-    padding: '6px',
+    //minHeight: '412px',
+    //flexGrow: 1,
+    [theme.breakpoints.down('md')]: {
+      padding: '5px'
+    },
+    paddingTop: '5px',
+    paddingLeft: '5px',
   },
   button:{
     backgroundColor: '#54AAB3',
     color: 'white',
     marginBottom: '20px',
+    marginTop: '10px',
+    [theme.breakpoints.down('xs')]: {
+      width: '80%',
+    },
+      width: '45%',
   },
   field: {
-    width: '80%',
+    width: '80%'
+  },
+  fieldset: {
+    width: '45%',
+    minWidth: '150px',
+    maxWidth: '300px',
+    marginLeft: '2%',
+    marginRight: '2%',
+    [theme.breakpoints.down('xs')]: {
+      width: '80%',
+    },
+  },
+  form: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   }
 });
 
@@ -179,17 +206,13 @@ class Settings extends Component {
         
         return (
             <div className={classes.root}>
-              <Grid   container justify="flex-start" direction="row" style={{height: '100%'}} >
-                <Grid item md={6}  xs={12}  className={classes.grid}>
+              <Grid direcion="column" container justify="flex-start" style={{height: '100%'}} >
+                <Grid item md={6} xs={12}  className={classes.grid}>
                   <Paper className={classes.paper}>
-                  <div>
-                    <Typography variant="h5" component="h3" className={classes.header}>
+                    <Typography variant="h6" className={classes.header}>
                         Threshold
                     </Typography>
-                    <br />
-                    <Grid container>
-                      <Grid item xs={6}> 
-                        <div>
+                    <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleThreshold}>
                           <TextField
                               name="maxWindSpeed"
                               label="Maximum Wind Speed"
@@ -198,14 +221,13 @@ class Settings extends Component {
                               margin="normal"
                               value={this.state.maxWindSpeed}
                               variant="outlined"
-                              className={classes.field}
+                              className={classes.fieldset}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
-                              InputLabelProps={{ shrink: this.state.maxWindSpeed? true:false }}
+                              InputLabelProps={{ shrink: true }}
                           />
 
-                          <br />
                           <TextField
                               name="meanWindSpeed"
                               label="Mean Wind Speed"
@@ -213,14 +235,13 @@ class Settings extends Component {
                               onChange={this.handleChange}
                               margin="normal"
                               variant="outlined"
-                              className={classes.field}
+                              className={classes.fieldset}
                               value={this.state.meanWindSpeed}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">mph</InputAdornment>,
                               }}
-                              InputLabelProps={{ shrink: this.state.meanWindSpeed? true:false }}
+                              InputLabelProps={{ shrink: true }}
                           />
-                          <br />
                           <TextField
                               name="windSpeedTimer"
                               label="Wind Speed Timer"
@@ -228,18 +249,14 @@ class Settings extends Component {
                               onChange={this.handleChange}
                               margin="normal"
                               variant="outlined"
-                              className={classes.field}
+                              className={classes.fieldset}
                               value={this.state.windSpeedTimer}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">s</InputAdornment>,
                               }}
-                              InputLabelProps={{ shrink: this.state.windSpeedTimer? true:false }}
+                              InputLabelProps={{ shrink: true }}
                           />
-                          <br />
-                        </div>
-                      </Grid>
 
-                      <Grid item xs={6}>
                         <TextField
                             name="maxRainFall"
                             label="Maximum Rain Fall"
@@ -247,12 +264,12 @@ class Settings extends Component {
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.field}
+                            className={classes.fieldset}
                             value={this.state.maxRainFall}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">mm</InputAdornment>,
                             }}
-                            InputLabelProps={{ shrink: this.state.maxRainFall? true:false }}
+                            InputLabelProps={{ shrink: true }}
                         />
                                                         
                         <TextField
@@ -262,14 +279,13 @@ class Settings extends Component {
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.field}
+                            className={classes.fieldset}
                             value={this.state.maxFloodLevel}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
                             }}
-                            InputLabelProps={{ shrink: this.state.maxFloodLevel? true:false }}
+                            InputLabelProps={{ shrink: true }}
                         />
-                        <br />
                         <TextField
                             name="maxSnowFall"
                             label="Maximum Snow Fall"
@@ -277,37 +293,29 @@ class Settings extends Component {
                             onChange={this.handleChange}
                             margin="normal"
                             variant="outlined"
-                            className={classes.field}
+                            className={classes.fieldset}
                             value={this.state.maxSnowFall}
                             InputProps={{
                               endAdornment: <InputAdornment position="end">m</InputAdornment>,
                             }}
-                            InputLabelProps={{ shrink: this.state.maxSnowFall? true:false }}
+                            InputLabelProps={{ shrink: true }}
                         />
 
-                      </Grid>
-                      
-                    </Grid>
-
-                    <br /><br />
-                    </div>
-                    <div>
-                      <Button type="submit" className={classes.button} onClick={this.handleThreshold} variant="contained" color="primary" >
+                      <Button type="submit" className={classes.button} variant="contained" color="primary" >
                           Submit
                       </Button>
-                    </div>
+                    </form>
                   </Paper>
               </Grid>
 
               <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
-                <div>
-                  <Typography variant="h5" component="h3" className={classes.header}>
+                
+                  <Typography variant="h6" className={classes.header}>
                       Heart Beat Settings
                   </Typography>
-                  <br />
-                    
-                  <form onSubmit={this.handleSubmit} >
+                                 
+                  <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit} >
 
                     <TextField
                         id="enabled-simple"
@@ -319,11 +327,12 @@ class Settings extends Component {
                         className={classes.field}
                         SelectProps={{
                           MenuProps: {
-                            className: classes.field,
+                            //className: classes.field,
                           },
                         }}
                         margin="normal"
                         variant="outlined"
+                        InputLabelProps={{ shrink: true }}
                     >
             
                       <MenuItem value="enabled">Enabled</MenuItem>
@@ -331,7 +340,6 @@ class Settings extends Component {
             
                     </TextField>
 
-                    <br />
 
                     <TextField
                         name="hbinterval"
@@ -346,10 +354,9 @@ class Settings extends Component {
                         InputProps={{
                           endAdornment: <InputAdornment position="end">s</InputAdornment>,
                         }}
-                        InputLabelProps={{ shrink: this.state.hbinterval? true:false }}
+                        InputLabelProps={{ shrink: true }}
                     />
 
-                    <br />
 
                     <TextField
                         name="maxMsgs"
@@ -364,76 +371,25 @@ class Settings extends Component {
                         InputProps={{
                           endAdornment: <InputAdornment position="end">msgs</InputAdornment>,
                         }}
-                        InputLabelProps={{ shrink: this.state.maxMsgs? true:false }}
+                        InputLabelProps={{ shrink: true }}
                     />
 
-                    <br /><br />   
-                  </form>
-                </div>
-                <div>
-                  <Button type="submit" className={classes.button} onClick={this.handleHeartBeat} variant="contained" color="primary" >
+                  <Button type="submit" className={classes.button} variant="contained" color="primary" >
                               Submit
                   </Button>
-                </div>
+                </form>
                 </Paper>
               </Grid>
 
-              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
-                <Paper className={classes.paper}>
-                <div>
-                  <Typography variant="h5" component="h3" className={classes.header}>
-                      Select Time Zone
-                  </Typography>
-                    
-                  <br />
-
-                  <form onSubmit={this.handleSubmit}>
-                    <TextField
-                      id="timeZone-simple"
-                      select
-                      label="Select Time Zone"
-                      value={this.state.timeZone}
-                      name="timeZone"
-                      className={classes.menu}
-                      onChange={this.handleChange}
-                      SelectProps={{
-                        MenuProps: {
-                          className: classes.menu,
-                        },
-                      }}
-                      margin="normal"
-                      variant="outlined"
-                      InputLabelProps={{ shrink: this.state.timeZone? true:false }}
-                    >
-                      {timezones.map(t => 
-                                  <MenuItem key={t.value} value={t}>{t.text.split(' ')[0]} {t.value} - {t.abbr}</MenuItem>
-                      )}
-                      {/* <MenuItem value="Asia/Kolkata">+ &nbsp; Asia/Kolkata</MenuItem>
-                        <MenuItem value="America/Denver">- &nbsp; America/Denver</MenuItem>
-                        <MenuItem value="Australia/Darwin">- &nbsp; Australia/Darwin</MenuItem> */}
-                    </TextField>
-            
-                    <br /><br />
-                  </form>
-                </div>
-                <div>
-                  <Button className={classes.button} onClick={this.handleTimeZone} variant="contained" color="primary" >
-                              Submit
-                  </Button>
-                </div>
-                </Paper>
-              </Grid>
+              
 
               <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                 <Paper className={classes.paper}>
-                <div>
-                  <Typography variant="h5" component="h3" className={classes.header}>
+                  <Typography variant="h6" className={classes.header}>
                     Request Frequency
                   </Typography>
 
-                  <br />
-                    
-                  <form onSubmit={this.handleSubmit} >
+                  <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit} >
                         <TextField
                             name="powerRequestTimePeriod"
                             label="Power"
@@ -446,9 +402,8 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">s</InputAdornment>,
                             }}
-                            InputLabelProps={{ shrink: this.state.powerRequestTimePeriod? true:false }}
+                            InputLabelProps={{ shrink: true }}
                         />
-                        <br />
                         <TextField
                             name="statusRequestTimePeriod"
                             label="Status"
@@ -461,49 +416,79 @@ class Settings extends Component {
                             InputProps={{
                               endAdornment: <InputAdornment position="end">s</InputAdornment>,
                             }}
-                            InputLabelProps={{ shrink: this.state.statusRequestTimePeriod? true:false }}
+                            InputLabelProps={{ shrink: true }}
                         />
-                        <br /><br />
-                  </form>
-                </div>
-                <div>
                   <Button type="submit" className={classes.button} onClick={this.handleFrequency} variant="contained" color="primary" >
                       Submit
                   </Button>
-                </div>
+                  </form>
+                </Paper>
+              </Grid>
+
+              <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
+                <Paper className={classes.paper}>
+                  <Typography variant="h6" className={classes.header}>
+                      Select Time Zone
+                  </Typography>
+                    
+                  <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                    <TextField
+                      id="timeZone-simple"
+                      select
+                      label="Select Time Zone"
+                      value={this.state.timeZone}
+                      name="timeZone"
+                      className={classes.field}
+                      onChange={this.handleChange}
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu,
+                        },
+                      }}
+                      margin="normal"
+                      variant="outlined"
+                      InputLabelProps={{ shrink: true }}
+                    >
+                      {timezones.map(t => 
+                                  <MenuItem key={t.value} value={t}>{t.text.split(' ')[0]} {t.value} - {t.abbr}</MenuItem>
+                      )}
+                      {/* <MenuItem value="Asia/Kolkata">+ &nbsp; Asia/Kolkata</MenuItem>
+                        <MenuItem value="America/Denver">- &nbsp; America/Denver</MenuItem>
+                        <MenuItem value="Australia/Darwin">- &nbsp; Australia/Darwin</MenuItem> */}
+                    </TextField>
+            
+                  
+                  <Button className={classes.button} type='submit' variant="contained" color="primary" >
+                              Submit
+                  </Button>
+                  </form>
                 </Paper>
               </Grid>
 
               <Grid item md={3}  xs={12} sm={6}  className={classes.grid} >
                   <Paper className={classes.paper}>
-                    <div>
-                      <Typography variant="h5" component="h3" className={classes.header}>
+                      <Typography variant="h6" className={classes.header}>
                           Set XBEE config
                       </Typography>
-                      <br />
                       
-                      <form onSubmit={this.handleSubmit } >
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit } >
                               <TextField
                                   name="panID"
                                   label="PAN ID"
                                   placeholder="Enter the PAN ID"
-                                  margin="none"
+                                  margin="normal"
                                   onChange={this.handleChange}
                                   variant="outlined"
                                   className={classes.field}
                                   value={this.state.panID.panID}
-                                  InputLabelProps={{ shrink: this.state.panID.panID? true:false }}
+                                  InputLabelProps={{ shrink: true }}
                               />
-                              <br />
-                              <br />
-                      </form>
-                    </div>
-                    
-                    <div>
-                      <Button type="submit" className={classes.button} onClick={this.handleClick} variant="contained" color="primary" >
+                             
+                  
+                      <Button type="submit" className={classes.button} variant="contained" color="primary" >
                           Submit
                       </Button>
-                    </div>
+                      </form>
                   </Paper>
                 </Grid>
             </Grid>
