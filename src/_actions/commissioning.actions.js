@@ -175,10 +175,19 @@ function caliberate(sensor) {
     return dispatch => {
         commissioningService.caliberate(sensor)
         .then(
-            ok => { 
-                toast('Successfully calibrated ' + sensor + '!', {
+            data => {
+                if(data.Result === "success")
+                {                
+                  toast('Successfully calibrated at ' + data.message + '!', {
                     position: "bottom-right"
                   });
+                }
+                else
+                {
+                    toast('Error in calibrating ' + sensor + '!', {
+                        position: "bottom-right"
+                      });
+                }
             },
             error => {
                 toast('Error in calibrating ' + sensor + '!', {
