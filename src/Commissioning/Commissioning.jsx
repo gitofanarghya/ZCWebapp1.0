@@ -174,36 +174,41 @@ class Commissioning extends Component {
     }
   }
 
-  handleSubmit = () => {
-    //e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
     const { ssid, password } = this.state;
     if (ssid && password) {
         this.props.setWifiInfo(ssid, password);
     }
   }
 
-  handleselectedFile = event => {
+  handleselectedFile = e => {
+    e.preventDefault();
     this.setState({
-      selectedFile: event.target.files[0]
+      selectedFile: e.target.files[0]
     })
   }
 
-  handleselectedKey = event => {
+  handleselectedKey = e => {
+    e.preventDefault();
     this.setState({
-      selectedKey: event.target.files[0]
+      selectedKey: e.target.files[0]
     })
   }
 
-  handleUpload = event => {
+  handleUpload = e => {
+    e.preventDefault();
     this.props.upload(this.state.selectedFile)
   }
 
-  handleUploadKey = event => {
+  handleUploadKey = e => {
+    e.preventDefault();
     this.props.uploadKey(this.state.selectedKey)
   }
 
-  handleChange1 = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleChange1 = e => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleClose = () => {
@@ -214,7 +219,8 @@ class Commissioning extends Component {
     this.setState({ open: true });
   };
 
-  selectS = () => {
+  selectS = (e) => {
+    e.preventDefault();
     this.props.selectSensor(this.state.windSensor, this.state.rainSensor, this.state.floodSensor, this.state.snowSensor, this.state.windAddress);
   }
   componentDidMount() {
@@ -246,7 +252,7 @@ class Commissioning extends Component {
                       <Typography variant="h6" className={classes.header}>
                           WiFi
                       </Typography>
-                      <form className={classes.form} noValidate autoComplete="off" onSubmit={() => this.handleSubmit()}>
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                           <TextField
                               name="ssid"
                               id="outlined-name"
@@ -271,7 +277,7 @@ class Commissioning extends Component {
                               InputLabelProps={{ shrink: true }}
                           />
                       
-                          <Button variant="contained" color="primary" className={classes.button}>
+                          <Button type='submit' variant="contained" color="primary" className={classes.button}>
                                       CONNECT
                           </Button>
                       </form>
@@ -311,7 +317,7 @@ class Commissioning extends Component {
                                 Upload the JSON document that contains the static initialization data.
                             </p>
                           </label>
-                      <Button variant="contained" margin="normal" color="primary" className={classes.button}>
+                      <Button type='submit' variant="contained" margin="normal" color="primary" className={classes.button}>
                           Upload
                       </Button>
                       </form>
@@ -493,7 +499,7 @@ class Commissioning extends Component {
                       </div>
 
 
-                  <Button variant="contained" color="primary" className={classes.button}>
+                  <Button type='submit' variant="contained" color="primary" className={classes.button}>
                               Submit
                   </Button>
                   </form>
@@ -530,7 +536,7 @@ class Commissioning extends Component {
                             </p>
                           </label>
                     
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button type='submit' variant="contained" color="primary" className={classes.button}>
                             Upload
                 </Button>
                 </form>
